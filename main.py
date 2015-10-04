@@ -17,14 +17,13 @@
 import webapp2
 
 # Import Controllers
-from controllers.authentication import LoginHandler, LogoutHandler
+from controllers.authentication import LoginHandler
 from controllers.homepage import MainHandler
 
 # Map Routes
 routes = [
     ('/', MainHandler),
-    ('/login', LoginHandler),
-    ('/logout', LogoutHandler)
+    ('/login', LoginHandler)
 ]
 
 app = webapp2.WSGIApplication(routes, debug=True)
