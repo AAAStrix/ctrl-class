@@ -16,10 +16,15 @@
 #
 import webapp2
 
-class MainHandler(webapp2.RequestHandler):
-    def get(self):
-        self.response.write('Hello world!')
+# Import Controllers
+from controllers.authentication import LoginHandler, LogoutHandler
+from controllers.homepage import MainHandler
 
-app = webapp2.WSGIApplication([
-    ('/', MainHandler)
-], debug=True)
+# Map Routes
+routes = [
+    ('/', MainHandler),
+    ('/login', LoginHandler),
+    ('/logout', LogoutHandler)
+]
+
+app = webapp2.WSGIApplication(routes, debug=True)
