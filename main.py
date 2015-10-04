@@ -20,8 +20,11 @@ import webapp2
 from controllers.authentication import LoginHandler, LogoutHandler
 from controllers.homepage import MainHandler
 
-app = webapp2.WSGIApplication([
+# Map Routes
+routes = [
     ('/', MainHandler),
     ('/login', LoginHandler),
     ('/logout', LogoutHandler)
-], debug=True)
+]
+
+app = webapp2.WSGIApplication(routes, debug=True)
