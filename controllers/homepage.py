@@ -6,5 +6,5 @@ class MainHandler(webapp2.RequestHandler):
 
     @user_required
     def get(self):
-        self.response.write('Hello, ' + self.auth.user.nickname() + '<br />')
-        self.response.write('<a href="' + self.auth.logout_url + '">Logout</a>')
+        self.response.write('Hello, ' + self.auth.user.email + '<br />')
+        self.response.write('<a href="%s">Logout</a>' % self.auth.logout_url)
