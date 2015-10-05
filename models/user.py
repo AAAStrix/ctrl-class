@@ -2,7 +2,6 @@ from google.appengine.ext import ndb
 
 
 class User(ndb.Model):
-    user_id = ndb.StringProperty()
     email = ndb.StringProperty()
 
     @classmethod
@@ -14,7 +13,7 @@ class User(ndb.Model):
         # Create the user if we couldn't find them
         if not user:
             email = google_user.nickname()
-            user = User(user_id=user_id, email=email, id=user_id)
+            user = User(id=user_id, email=email)
             user.put()
 
         return user
