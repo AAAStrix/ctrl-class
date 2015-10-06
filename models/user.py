@@ -3,6 +3,7 @@ from google.appengine.ext import ndb
 
 class User(ndb.Model):
     email = ndb.StringProperty()
+    courses = ndb.StringProperty(repeated=True)
 
     @classmethod
     def get_from_authentication(self, google_user):
@@ -17,3 +18,12 @@ class User(ndb.Model):
             user.put()
 
         return user
+        
+	def add_course(course):
+		if course:
+			courses.append(course)
+			courses.put()
+
+	# question: can we really just access our properties without this?
+	# def get_courses():
+	#	return courses
