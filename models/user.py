@@ -19,7 +19,7 @@ class User(ndb.Model):
 
         return user
 
-    def add_course(course):
+    def add_course(self, course):
         if course:
-            courses.append(course)
-            courses.put()
+            self.courses.append(course)
+            self.courses.put()

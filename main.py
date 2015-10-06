@@ -24,8 +24,8 @@ from controllers.account import CourseHandler
 # Map Routes
 routes = [
     ('/', MainHandler),
-    ('/login', LoginHandler)
-    ('/courses', CourseHandler) 
+    ('/login', LoginHandler),
+    ('/courses', CourseHandler)
 ]
 
 app = webapp2.WSGIApplication(routes, debug=True)
