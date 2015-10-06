@@ -49,6 +49,7 @@ body {
 	color: #165df5;
 }
 
+
 #login_textbox {
 	border:2px solid #ffd02a;
 	border-radius:20px;
@@ -105,16 +106,51 @@ body {
 }
 
 #navbar_title {
+	width: 18%;
+	height: 100%;
+	float: left;
 	font-family: 'Dosis', sans-serif;
 	background: #0d77fa;
 	color: #ffd02a;
-	font-size: 50px;
+	font-size: 60px;
 	font-weight: bold;
 
 }
 
+#navbar_menu {
+	width: 64%;
+	height: 100%;
+	float: left;
+	font-family: 'Dosis', sans-serif;
+	background: #0d77fa;
+	color: #ffd02a;
+	font-size: 60px;
+	font-weight: bold;
+}
+
+#navbar_welcome {
+	width: 18%;
+	height: 100%;
+	float: left;
+	font-family: 'Dosis', sans-serif;
+	background: #0d77fa;
+	color: #ffd02a;
+	font-size: 30px;
+	font-weight: 500;
+}
+
+#navbar_welcome p{
+	font-family: 'Dosis', sans-serif;
+	color: #ffd02a;
+	font-size: 30px;
+	font-weight: 500;
+    bottom: 0;
+    right: 0;
+}
+
 #tasks {
-	width: 16%;
+	clear: none;
+	width: 18%;
 	height: 83%;
 	float: left;
 	background: #ffc010;
@@ -128,7 +164,7 @@ body {
 #task_list {
 	width: 100%;
 	height: 60%;
-	background: #ffc010;
+	background: #fffa10;
 	font-family: 'Dosis', sans-serif;
 	font-size: 20px;
 	font-weight: 500;
@@ -200,10 +236,10 @@ body {
 }
 
 #classes {
-	width: 16%;
+	width: 18%;
 	height: 83%;
 	float: left;
-	background: #ffc010;
+	background: #ffe010;
 	font-family: 'Dosis', sans-serif;
 	text-align: center;
 	color: #165df5;

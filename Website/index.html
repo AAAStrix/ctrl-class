@@ -17,8 +17,8 @@
 		
 		<div id="login_form">
 			<form>
-  				<br> LOGIN: <br> <input id="login_textbox" type="text" name="login"><br><br>
-  				PASSWORD: <br> <input id="login_textbox" type="password" name="pass"><br><br>
+  				<br> LOGIN: <br> <input id="login_textbox" type="text" name="login" onkeydown="if (event.keyCode == 13) document.getElementById('login_button').click()"><br><br>
+  				PASSWORD: <br> <input id="login_textbox" type="password" name="pass" onkeydown="if (event.keyCode == 13) document.getElementById('login_button').click()"><br><br>
   				<input id="login_button" type="button" value="Submit" onclick="location.href='home.html'">
 			</form>
 		</div>
