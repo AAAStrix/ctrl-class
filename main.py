@@ -14,12 +14,22 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 #
+import os   # needs to go with render_template
 import webapp2
+
+# Import template functionality
+from google.appengine.ext.webapp import template
 
 # Import Controllers
 from controllers.authentication import LoginHandler
 from controllers.homepage import MainHandler
 
+# would like to have this in a separate file for use by all handlers
+def render_template(self, handler, templatename, templatevalues):
+    path = os.path.join(os.path.dirname(__file__), 'views/' + templatename)
+    html = template.render(path, templatevalues)
+    handler.response.out.write(html) 
+     
 # Map Routes
 routes = [
     ('/', MainHandler),
