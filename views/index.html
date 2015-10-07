@@ -1,6 +1,6 @@
 <html>
 <head>
-	<title>Ctrl+Class</title>
+	<title>ctrl-class</title>
 	<link href='https://fonts.googleapis.com/css?family=Dosis:800' rel='stylesheet' type='text/css'>
 	<link href="aaas.css" rel="stylesheet" />
     <link href="bootstrap.min.css" rel="stylesheet" />
@@ -9,7 +9,7 @@
 <body>
 		<div id="login_top">
 			<div id="login_title">
-				Ctrl+Class
+				ctrl-class
 			</div>
 		</div>
 		
@@ -17,16 +17,16 @@
 		
 		<div id="login_form">
 			<form>
-  				<br> LOGIN: <br> <input id="login_textbox" type="text" name="login"><br><br>
-  				PASSWORD: <br> <input id="login_textbox" type="password" name="pass"><br><br>
-  				<input id="login_button" type="submit" value="Submit">
+  				<br> LOGIN: <br> <input id="login_textbox" type="text" name="login" onkeydown="if (event.keyCode == 13) document.getElementById('login_button').click()"><br><br>
+  				PASSWORD: <br> <input id="login_textbox" type="password" name="pass" onkeydown="if (event.keyCode == 13) document.getElementById('login_button').click()"><br><br>
+  				<input id="login_button" type="button" value="Submit" onclick="location.href='home.html'">
 			</form>
 		</div>
 		
 		<div id="divider_bottom"></div>
 		
 		<div id="login_bottom">
-			
+			Team AAASTrix 2015
 		</div>
 	
 	<div>
