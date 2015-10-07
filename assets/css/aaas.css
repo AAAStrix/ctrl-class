@@ -87,7 +87,7 @@ body {
 	height: 1%;
 	background: #ffd02a;
 }
-	
+
 #login_bottom {
 	width:100%;
 	height: 7%;
@@ -146,6 +146,10 @@ body {
 	font-weight: 500;
     bottom: 0;
     right: 0;
+}
+
+#navbar_welcome a {
+  color: #ffd02a;
 }
 
 #tasks {
