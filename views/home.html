@@ -9,7 +9,10 @@
 
     </div>
     <div id="navbar_welcome">
-      <p>Welcome, Samuel</p>
+      <p>
+        Welcome, {{ auth.user.email }}
+        <a href='{{ auth.logout_url }}'>Logout</a>
+      </p>
     </div>
   </div>
 
