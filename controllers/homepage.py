@@ -7,4 +7,7 @@ class MainHandler(webapp2.RequestHandler):
 
     @user_required
     def get(self):
-        render_template(self, 'home.html')
+        params = {
+            'courses': self.auth.user.courses
+        }
+        render_template(self, 'home.html', params)

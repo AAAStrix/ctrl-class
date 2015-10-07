@@ -15,4 +15,5 @@ class CourseHandler(webapp2.RequestHandler):
     def post(self):
         course = self.request.get('course')
         self.auth.user.add_course(course)
+        self.redirect('/')
         #(pseudo) user.add_course(course)
