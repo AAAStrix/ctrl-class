@@ -1,5 +1,5 @@
 import webapp2
-from decorators import user_required
+from utils.decorators import user_required
 
 
 class CourseHandler(webapp2.RequestHandler):
