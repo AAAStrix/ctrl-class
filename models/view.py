@@ -1,0 +1,13 @@
+import os
+from google.appengine.ext import ndb
+
+# Import template functionality
+from google.appengine.ext.webapp import template
+
+class View(ndb.Model):
+
+    def render_template(self, handler, templatename, templatevalues):
+        path = os.path.join(os.path.dirname(__file__), 'views/' + templatename)
+        html = template.render(path, templatevalues)
+        handler.response.out.write(html)
+    
