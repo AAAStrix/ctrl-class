@@ -1,11 +1,10 @@
 import webapp2
-from decorators import user_required
+from utils.decorators import user_required
+from utils import render_template
 
 
 class MainHandler(webapp2.RequestHandler):
 
     @user_required
     def get(self):
-        self.response.write('Hello, ' + self.auth.user.email + '<br />')
-        self.response.write('<a href="%s">Logout</a>' % self.auth.logout_url)
-        self.response.write('<br/><br/><a href="/courses">My Courses</a>')
+        render_template(self, 'home.html')

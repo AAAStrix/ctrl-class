@@ -1,0 +1,23 @@
+{% extends "_base.html" %}
+{% block bodycontent %}
+  <div id="login_top">
+    <div id="login_title">
+      ctrl-class
+    </div>
+  </div>
+
+  <div id="divider_top"></div>
+
+  <div id="login_form">
+    <form method="post" action="/login">
+      <br>
+      LOGIN: <br><input id="login_textbox" type="text" name="login"><br><br>
+      PASSWORD: <br><input id="login_textbox" type="password" name="pass"><br><br>
+      <input id="login_button" type="submit" value="Submit">
+    </form>
+  </div>
+
+  <div id="divider_bottom"></div>
+
+  <div id="login_bottom"></div>
+{% endblock %}
