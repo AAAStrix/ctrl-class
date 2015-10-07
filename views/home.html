@@ -58,13 +58,14 @@
   <div id="classes">
     <label>Classes</label>
       <ul>
-        <li>CS1520 Web Programming</li>
-        <li>CS1541 Computer Architecture</li>
-      <li>CS1632 Software Quality Assurance</li>
-      <li>COE1502 Digital Lab</li>
-      <li>COMMRC0540 Discussion</li>
+        {% for course in courses %}
+          <li>{{ course }}</li>
+        {% endfor %}
       </ul>
-      <p> + Add Class<p>
+      <form method="POST" action="/courses">
+        <input type='text' name='course' />
+        <input type='submit' value='Add Course' />
+      </form>
   </div>
 
 

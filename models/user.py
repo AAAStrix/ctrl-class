@@ -22,4 +22,4 @@ class User(ndb.Model):
     def add_course(self, course):
         if course:
             self.courses.append(course)
-            self.courses.put()
+            self.put()
