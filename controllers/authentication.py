@@ -3,7 +3,9 @@
 import webapp2
 from google.appengine.api import users
 
+
 class LoginHandler(webapp2.RequestHandler):
+
     def get(self):
         login_url = users.create_login_url()
         # render_template(self, 'login.html', {})
