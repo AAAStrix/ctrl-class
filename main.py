@@ -19,7 +19,7 @@ import webapp2
 # Import Controllers
 from controllers.authentication import LoginHandler
 from controllers.homepage import MainHandler
-from controllers.account import CourseHandler
+from controllers.courses import CourseHandler
 
 # Map Routes
 routes = [
