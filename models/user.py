@@ -2,8 +2,14 @@ from google.appengine.ext import ndb
 
 
 class User(ndb.Model):
+
     email = ndb.StringProperty()
-    courses = ndb.StringProperty(repeated=True)
+
+    course_keys = ndb.KeyProperty(repeated=True, kind='Course')
+
+    @property
+    def courses(self):
+        return map(lambda k: k.get(), self.course_keys)
 
     @classmethod
     def get_from_authentication(self, google_user):
@@ -20,6 +26,10 @@ class User(ndb.Model):
         return user
 
     def add_course(self, course):
+        """Add a student to a course and vice versa"""
         if course:
-            self.courses.append(course)
+            # Add the student to the course
+            course.add_student(self)
+            # Add the course to the student
+            self.course_keys.append(course.key)
             self.put()
