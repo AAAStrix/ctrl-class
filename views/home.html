@@ -58,7 +58,7 @@
     <label>Classes</label>
       <ul>
         {% for course in courses %}
-          <li>{{ course }}</li>
+          <li>{{ course.title }}</li>
         {% endfor %}
       </ul>
       <form method="POST" action="/courses">

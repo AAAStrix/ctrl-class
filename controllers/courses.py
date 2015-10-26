@@ -8,10 +8,10 @@ class CourseHandler(webapp2.RequestHandler):
 
     @user_required
     def get(self):
-        self.response.write('Your courses: ' + '<br/>')
-        for course in self.auth.user.courses:
-            print(course)
-            self.response.write("%s<br/>" % course.title)
+        params = {
+            'courses': self.auth.user.courses
+        }
+        render_template(self, 'course_list.html', params)
 
     @user_required
     def post(self):

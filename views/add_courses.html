@@ -4,8 +4,11 @@
   <h1>Test</h1>
 
   <form method='POST' action='/courses'>
-    <input type='text' placeholder='Name of Course' name='title' />
-    <input type='submit' value='Add Course' />
+    <div class='form-group'>
+      <label for='courseTitleInput'>Course Name</label>
+      <input type='text' class='form-control' id='courseTitleInput' placeholder='Name of Course' name='title' />
+    </div>
+    <button type='submit' class='btn btn-primary'>Add Course</button>
   </form>
 
 {% endblock %}
