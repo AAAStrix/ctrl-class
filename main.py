@@ -19,13 +19,14 @@ import webapp2
 # Import Controllers
 from controllers.authentication import LoginHandler
 from controllers.homepage import MainHandler
-from controllers.courses import CourseHandler
+from controllers.courses import CourseHandler, CourseAddHandler
 
 # Map Routes
 routes = [
     ('/', MainHandler),
     ('/login', LoginHandler),
-    ('/courses', CourseHandler)
+    ('/courses', CourseHandler),
+    ('/courses/add', CourseAddHandler)
 ]
 
 app = webapp2.WSGIApplication(routes, debug=True)

@@ -1,0 +1,12 @@
+{% extends "_base.html" %}
+{% block bodycontent %}
+
+  <h1>Test</h1>
+
+  <form method='POST' action='/courses'>
+    <input type='text' placeholder='Name of Course' name='title' />
+    <input type='submit' value='Add Course' />
+  </form>
+
+{% endblock %}
+
