@@ -19,13 +19,14 @@ import webapp2
 # Import Controllers
 from controllers.authentication import LoginHandler
 from controllers.homepage import MainHandler
-from controllers.courses import CourseHandler, CourseAddHandler, CourseSearchHandler
+from controllers.courses import CourseListHandler, CourseHandler, CourseAddHandler, CourseSearchHandler
 
 # Map Routes
 routes = [
     ('/', MainHandler),
     ('/login', LoginHandler),
-    ('/courses', CourseHandler),
+    ('/courses', CourseListHandler),
+    ('/course', CourseHandler),
     ('/courses/add', CourseAddHandler),
     ('/courses/search', CourseSearchHandler)
 ]

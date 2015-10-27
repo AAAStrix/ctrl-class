@@ -13,6 +13,10 @@ class Course(ndb.Model):
     def students(self):
         return map(lambda k: k.get(), self.student_keys)
 
+    @property
+    def url(self):
+        return '/course?key={}'.format(self.key.urlsafe())
+
     @classmethod
     def new(cls, title):
         """
@@ -42,6 +46,10 @@ class Course(ndb.Model):
         """Find courses with a title that partially matched the query"""
         r = search.Index(name='course_title_autocomplete').search('title:{}'.format(query))
         return [ndb.Key(urlsafe=m.doc_id).get() for m in r]
+
+    @classmethod
+    def find_with_key(cls, key):
+        return ndb.Key(urlsafe=key).get()
 
     def add_student(self, user):
         """Add a student to the course"""
