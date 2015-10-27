@@ -43,11 +43,7 @@ class CourseSearchHandler(webapp2.RequestHandler):
     @user_required
     def get(self):
         search = self.request.get('query')
-        # Perform the search, if the query exists
-        if len(search) > 0:
-            results = Course.find_with_partial_title(search)
-        else:
-            results = []
+        results = Course.find_with_partial_title(search)
         obj = {
             'courses': map(lambda x: x.as_json(), results)
         }

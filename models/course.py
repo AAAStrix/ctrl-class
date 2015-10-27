@@ -44,6 +44,8 @@ class Course(ndb.Model):
     @classmethod
     def find_with_partial_title(cls, query):
         """Find courses with a title that partially matched the query"""
+        if len(query) == 0:
+            return []
         r = search.Index(name='course_title_autocomplete').search('title:{}'.format(query))
         return [ndb.Key(urlsafe=m.doc_id).get() for m in r]
 
