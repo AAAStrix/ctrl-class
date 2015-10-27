@@ -1,7 +1,18 @@
 {% extends "_base.html" %}
+
+{% block jscontent %}
+  <script type='text/javascript' src='/assets/js/react.min.js'></script>
+  <script type='text/javascript' src='/assets/js/react-dom.min.js'></script>
+  <script type='text/javascript' src='/assets/js/babel.min.js'></script>
+  <script type='text/javascript' src='https://code.jquery.com/jquery-2.1.4.min.js'></script>
+  <script type='text/babel' src='/assets/js/components/course-search-input.js'></script>
+{% endblock %}
+
 {% block bodycontent %}
 
-  <h1>Test</h1>
+  <h1>Add a Course</h1>
+
+  <div id='course-search-input'></div>
 
   <form method='POST' action='/courses'>
     <div class='form-group'>

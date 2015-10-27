@@ -12,7 +12,7 @@ class User(ndb.Model):
         return map(lambda k: k.get(), self.course_keys)
 
     @classmethod
-    def get_from_authentication(self, google_user):
+    def get_from_authentication(cls, google_user):
         """Get or create a user based on the ID retrieved from Google"""
         user_id = google_user.user_id()
         user = User.get_by_id(user_id)
@@ -33,3 +33,12 @@ class User(ndb.Model):
             # Add the course to the student
             self.course_keys.append(course.key)
             self.put()
+
+    def as_json(self, include_relationships=False):
+        """Get the JSON representation of a user"""
+        obj = {
+            'email': self.email
+        }
+        if include_relationships:
+            obj['courses'] = map(lambda x: x.as_json(), self.courses)
+        return obj
