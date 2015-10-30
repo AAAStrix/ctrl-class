@@ -1,7 +1,22 @@
 class CourseSearchResult extends React.Component {
+  handleClick(result) {
+    const { key } = result;
+    $.ajax({
+      type: 'POST',
+      url: '/courses/add',
+      data: { key },
+      dataType: 'json'
+    })
+    .done(function() {
+      window.location = '/course?key=' + result.key;
+    });
+  }
+
   render() {
+    const result = this.props.result;
+    const handleClick = this.handleClick.bind(this, result);
     return (
-      <li>{this.props.name}</li>
+      <li><a href='#' onClick={handleClick}>{result.title}</a></li>
     )
   }
 }
@@ -11,7 +26,7 @@ class CourseSearchResultList extends React.Component {
     return (
       <ul>
         {this.props.courses.map((result) => {
-          return <CourseSearchResult name={result.title} />;
+          return <CourseSearchResult result={result} />;
         })}
       </ul>
     );

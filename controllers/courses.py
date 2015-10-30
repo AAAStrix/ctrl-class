@@ -47,7 +47,7 @@ class CourseSearchHandler(webapp2.RequestHandler):
         obj = {
             'courses': map(lambda x: x.as_json(), results)
         }
-        render_json(self, obj)
+        render_json(self, obj=obj)
 
 
 class CourseAddHandler(webapp2.RequestHandler):
@@ -55,3 +55,10 @@ class CourseAddHandler(webapp2.RequestHandler):
     @user_required
     def get(self):
         render_template(self, 'add_courses.html')
+
+    @user_required
+    def post(self):
+        course_token = self.request.get('key')
+        course = Course.find_with_key(course_token)
+        self.auth.user.add_course(course)
+        render_json(self)
