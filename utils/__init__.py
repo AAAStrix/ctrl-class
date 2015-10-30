@@ -17,7 +17,8 @@ def render_template(handler, templatename, templatevalues={}):
     handler.response.out.write(html)
 
 
-def render_json(handler, obj):
+def render_json(handler, status=200, obj={}):
+    handler.response.status = status
     handler.response.out.write(json.dumps(obj))
 
 
