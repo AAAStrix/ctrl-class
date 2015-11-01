@@ -6,56 +6,56 @@
   <link rel="stylesheet" href="/assets/css/aaas.css" />
 </head>
 <body>
-	<div id="navbar_inner">
-		<nav class="navbar navbar-inverse navbar-fixed-top">
-  			<div class="container-fluid">
-  				<a class="navbar-brand" href="#"><label>ctrl-class<label></a>
-  				<ul class="nav navbar-nav">
-    				<li><a href="#">home <span class="sr-only">(current)</span></a></li>
-        			<li><a href="#">classes</a></li>
-        		</ul>
-        		<p class="navbar-text navbar-right">
-    				welcome, <a href='{{ auth.logout_url }}'>{{ auth.user.email }}</a>
-				</p>
- 			</div>
-		</nav>
-	</div>
-	<div class="container-fluid">
-		<div class="row">
-			<div class="col-sm-2" id="left_sidebar">
-				<div>
-					<div id="title">
-						<label>courses</label>
-					</div>
-  					<div id="list">
-  						<ul>
-    						<li>CS 1520</li>
-    						<li>CS 1501</li>
-    						<li>CS 1510</li>
-    						<li> + add new course</li>
-  						</ul>
-  					</div>
-					<div id="title">
-						<label>projects</label>
-					</div>
-					<div id="list">
-  						<ul>
-    						<li>1520 WebApp</li>
-    						<li>1501 LZW</li>
-    						<li>1501 Midterm</li>
-    						<li> + add group</li>
-						</ul>
-					</div>
-				</div>
-			</div> <!--This ends <div class="col-sm-3" id="left_sidebar"-->
-			<div class="col-sm-10">
-				<div id="main_square">
+  <div id="navbar_inner">
+    <nav class="navbar navbar-inverse navbar-fixed-top">
+        <div class="container-fluid">
+          <a class="navbar-brand" href="#"><label>ctrl-class<label></a>
+          <ul class="nav navbar-nav">
+            <li><a href="#">home <span class="sr-only">(current)</span></a></li>
+              <li><a href="#">classes</a></li>
+            </ul>
+            <p class="navbar-text navbar-right">
+            welcome, <a href='{{ auth.logout_url }}'>{{ auth.user.email }}</a>
+        </p>
+      </div>
+    </nav>
+  </div>
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-sm-2" id="left_sidebar">
+        <div>
+          <div id="title">
+            <label>courses</label>
+          </div>
+            <div id="list">
+              <ul>
+                <li>CS 1520</li>
+                <li>CS 1501</li>
+                <li>CS 1510</li>
+                <li> + add new course</li>
+              </ul>
+            </div>
+          <div id="title">
+            <label>projects</label>
+          </div>
+          <div id="list">
+              <ul>
+                <li>1520 WebApp</li>
+                <li>1501 LZW</li>
+                <li>1501 Midterm</li>
+                <li> + add group</li>
+            </ul>
+          </div>
+        </div>
+      </div> <!--This ends <div class="col-sm-3" id="left_sidebar"-->
+      <div class="col-sm-10">
+        <div id="main_square">
           {% block bodycontent %}
           {% endblock %}
-				</div>
-			</div> <!--This ends <div class="col-sm-9" id="main_square">-->
-		</div>
-	</div>
+        </div>
+      </div> <!--This ends <div class="col-sm-9" id="main_square">-->
+    </div>
+  </div>
 
   {% block jscontent %}
   {% endblock %}
