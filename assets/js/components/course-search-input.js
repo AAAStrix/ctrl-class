@@ -17,7 +17,7 @@ class CourseSearchResult extends React.Component {
     const handleClick = this.handleClick.bind(this, result);
     return (
       <li><a href='#' onClick={handleClick}>{result.title}</a></li>
-    )
+    );
   }
 }
 
