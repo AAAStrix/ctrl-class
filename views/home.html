@@ -1,0 +1,77 @@
+{% extends "_base.html" %}
+{% block bodycontent %}
+
+  <div id="navbar">
+    <div id="navbar_title">
+      ctrl-class
+    </div>
+    <div id="navbar_menu">
+
+    </div>
+    <div id="navbar_welcome">
+      <p>
+        Welcome, <a href='{{ auth.logout_url }}'>{{ auth.user.email }}</a>
+      </p>
+    </div>
+  </div>
+
+  <div id="divider_top"></div>
+
+
+  <div id="tasks">
+    <div id="task_list">
+        <label>Tasks</label>
+        <ul>
+          <li><input type="checkbox"> Finish MVP</li>
+          <li><input type="checkbox"> Read plato</li>
+          <li><input type="checkbox"> Meet with 1541 group</li>
+          <li><input type="checkbox"> Exam Friday @ 2pm (!!)</li>
+          <li> + Add Task</li>
+
+        </ul>
+    </div>
+    <div id="group_list">
+        <label>Groups</label>
+        <ul>
+          <li>AAASTrix</li>
+          <li>1541 Group</li>
+          <li>CSC Club</li>
+          <li> + Add Group</li>
+
+        </ul>
+    </div>
+
+  </div>
+
+
+  <div id="calendar">
+    <div id="cal_title">
+      Calendar
+    </div>
+    <div id="cal_img">
+      <img src="/assets/img/calendar_pic.png">
+    </div>
+  </div>
+
+
+  <div id="classes">
+    <label>Classes</label>
+      <ul>
+        {% for course in courses %}
+          <li>{{ course.title }}</li>
+        {% endfor %}
+      </ul>
+      <form method="POST" action="/courses">
+        <input type='text' name='course' />
+        <input type='submit' value='Add Course' />
+      </form>
+  </div>
+
+
+  <div id="divider_bottom"></div>
+
+  <div id="home_bottom">
+    Team AAASTrix 2015
+  </div>
+
+{% endblock %}

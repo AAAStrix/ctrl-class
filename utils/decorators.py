@@ -1,4 +1,5 @@
 from google.appengine.api import users
+from models.user import User
 
 
 class Authentication(object):
@@ -9,8 +10,8 @@ class Authentication(object):
     logout_url = None
     """Store the logout URL"""
 
-    def __init__(self, user):
-        self.user = user
+    def __init__(self, user_from_auth):
+        self.user = User.get_from_authentication(user_from_auth)
         self.logout_url = users.create_logout_url('/login')
 
 
