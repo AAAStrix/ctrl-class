@@ -3,6 +3,50 @@ body {
 	font-family: 'Dosis', sans-serif;
 }
 
+h2 {
+  font-size: 20px;
+  font-weight: bold;
+}
+
+/* Task List */
+.task-list {
+  list-style: none;
+  padding-left: 0;
+}
+
+.task-list .task {
+  font-size: 14px;
+  line-height: 20px;
+}
+
+.task-list .task input[type='checkbox'] {
+  font-size: 20px;
+  margin-right: 8px;
+}
+
+/* Project List */
+
+.projects {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
+
+.project {
+  background-color: #FFFABB;
+  box-shadow: 0 1px 1px rgba(0, 0, 0, .28);
+  margin-bottom: 18px;
+  padding: 9px;
+  width: 30%;
+}
+
+.project h3 {
+  font-size: 16px;
+  font-weight: bold;
+  margin-top: 2px;
+}
+
+
 #tasks ul {
     list-style-type: none;
     padding-left: 10;
