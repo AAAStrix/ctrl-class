@@ -50,14 +50,12 @@
 			</div> <!--This ends <div class="col-sm-3" id="left_sidebar"-->
 			<div class="col-sm-10">
 				<div id="main_square">
-					Something
+          {% block bodycontent %}
+          {% endblock %}
 				</div>
 			</div> <!--This ends <div class="col-sm-9" id="main_square">-->
 		</div>
 	</div>
-
-  {% block bodycontent %}
-  {% endblock %}
 
   {% block jscontent %}
   {% endblock %}
