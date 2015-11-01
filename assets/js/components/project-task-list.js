@@ -1,9 +1,36 @@
 class TaskItem extends React.Component {
+  constructor(props) {
+    super(props);
+    const { task } = props;
+    let { completed } = task;
+    if (typeof completed === 'undefined') {
+      completed = false;
+    }
+    this.state = { completed };
+  }
+
+  handleChange(event) {
+    const checked = event.target.checked;
+    // TODO: Add some sort of AJAX request here to toggle the task in the DB
+    this.setState({
+      completed: checked
+    });
+  }
+
   render() {
     const task = this.props.task;
+    const checked = this.state.completed;
+    const clickHandler = this.handleChange.bind(this);
+    const style = {};
+    if (checked) {
+      style['text-decoration'] = 'line-through';
+    } else {
+      style['text-decoration'] = 'none';
+    }
     return (
-      <li class='task'>
-        <input type='checkbox' /> {task.title}
+      <li className='task'>
+        <input type='checkbox' onChange={clickHandler} checked={checked} />
+        <span style={style}>{task.title}</span>
       </li>
     );
   }
