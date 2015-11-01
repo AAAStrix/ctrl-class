@@ -1,8 +1,68 @@
 {% extends "_base.html" %}
+
+{% block jscontent %}
+  <script type='text/javascript' src='/assets/js/react.min.js'></script>
+  <script type='text/javascript' src='/assets/js/react-dom.min.js'></script>
+  <script type='text/javascript' src='/assets/js/reactive-elements.min.js'></script>
+  <script type='text/javascript' src='/assets/js/babel.min.js'></script>
+  <script type='text/javascript' src='https://code.jquery.com/jquery-2.1.4.min.js'></script>
+  <script type='text/babel' src='/assets/js/components/project-task-list.js'></script>
+  <script>
+    window.tasks = [
+      {
+        title: 'This is a task that is due soon',
+        completed: true
+      }
+    ];
+    window.projects = [
+      {
+        title: 'Some Project',
+        tasks: [
+          {
+            key: 'abcd',
+            title: 'this is some task'
+          }
+        ]
+      }, {
+        title: 'Some Other Project',
+        tasks: [
+          {
+            key: 'abcd',
+            title: 'This is some other task'
+          }
+        ]
+      }, {
+        title: 'A third project',
+        tasks: [
+          {
+            key: 'abcd',
+            title: 'This is some other task'
+          }, {
+            key: 'abcd',
+            title: 'A second task!'
+          }
+        ]
+      }, {
+        title: 'A Fourth project',
+        tasks: [
+          {
+            key: 'abcd',
+            title: 'This is some other task'
+          }
+        ]
+      }
+    ];
+  </script>
+{% endblock %}
+
 {% block bodycontent %}
 
+  <h2>Due Soon</h2>
 
-  
-  
+  <task-list tasks="{window.tasks}"></task-list>
+
+  <h2>Current Projects</h2>
+
+  <project-list projects="{window.projects}"></project-list>
 
 {% endblock %}
