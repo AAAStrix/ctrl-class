@@ -8,6 +8,11 @@
   <script type='text/javascript' src='https://code.jquery.com/jquery-2.1.4.min.js'></script>
   <script type='text/babel' src='/assets/js/components/project-task-list.js'></script>
   <script>
+    window.tasks = [
+      {
+        title: 'This is a task that is due soon'
+      }
+    ];
     window.projects = [
       {
         title: 'Some Project',
@@ -53,14 +58,10 @@
 
   <h2>Due Soon</h2>
 
-  <ul class='task-list'>
-    <li class='task'>
-      <input type='checkbox' />This is some task
-    </li>
-  </ul>
+  <task-list tasks="{window.tasks}"></task-list>
 
   <h2>Current Projects</h2>
 
-  <project-list projects="{window.projects}" />
+  <project-list projects="{window.projects}"></project-list>
 
 {% endblock %}

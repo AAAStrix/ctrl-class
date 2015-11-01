@@ -9,17 +9,26 @@ class TaskItem extends React.Component {
   }
 }
 
+class TaskList extends React.Component {
+  render() {
+    const tasks = this.props.tasks;
+    return (
+      <ul className='task-list'>
+        {tasks.map((task) => {
+          return <TaskItem task={task} />
+        })}
+      </ul>
+    );
+  }
+}
+
 class ProjectItem extends React.Component {
   render() {
     const project = this.props.project;
     return (
       <div className='project'>
         <h3>{project.title}</h3>
-        <ul className='task-list'>
-          {project.tasks.map((task) => {
-            return <TaskItem task={task} />
-          })}
-        </ul>
+        <TaskList tasks={project.tasks} />
       </div>
     );
   }
@@ -38,3 +47,4 @@ class ProjectList extends React.Component {
 }
 
 document.registerReact('project-list', ProjectList);
+document.registerReact('task-list', TaskList);
