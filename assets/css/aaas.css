@@ -173,8 +173,6 @@ body {
 	color: #E6E4E4;
 }
 
-
-
 .navbar-brand label {
 	padding-top: 10px;
 	font-family: 'Comfortaa', cursive;
@@ -216,3 +214,54 @@ body {
 	background: #ffffff;
 }
 
+.course-search-result {
+	list-style-type: none;
+	padding-left: 10px
+}
+
+#course-box {
+	border-radius: 2em;
+	border-style: solid;
+	border-color: lightgray;
+	padding-left: 10px;
+	width: 35%;
+	box-shadow: 1px 2px 2px rgba(0,0,0,.075);
+}
+
+.course-box-div {
+	text-align: left;
+	margin: 0 auto;
+	padding: 0;
+}
+
+/*.course-box:focus {
+	outline: none;
+	border-color: #bbb;
+}*/
+
+#courseTitleInput {
+	border-radius: 2em;
+	border-style: solid;
+	border-color: lightgray;
+	padding-left: 10px;
+	box-shadow: 1px 2px 2px rgba(0,0,0,.075);
+}
+
+.btn-primary {
+	border-radius: 4em;	
+	border-color: #222222;
+	background: #222222;
+}
+
+.btn:hover {
+	border-color: #222222;
+	background: #222222;
+}
+
+.btn:focus {
+	outline: none;
+}
+
+#bolded-title {
+	font-weight: 700;
+}
