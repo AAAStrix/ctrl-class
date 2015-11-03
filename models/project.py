@@ -11,14 +11,14 @@ class Project(ndb.Model):
     @property
     def members(self):
         return map(lambda k: k.get(), self.member_keys)
-        
+
     def tasks(self):
         return map(lambda k: k.get(), self.task_keys)
-        
+
     @property
     def url(self):
         return '/project?key={}'.format(self.key.urlsafe())
-        
+
     @classmethod
     def new(cls, title):
         """
@@ -34,17 +34,17 @@ class Project(ndb.Model):
     @classmethod
     def find_with_key(cls, key):
         return ndb.Key(urlsafe=key).get()
-        
-    def get_course_by_name(title) 
-        # (todo) check name against self.auth.user.courses 
+
+    # def get_course_by_name(title):
+        # (todo) check name against self.auth.user.courses
         # (todo) update course key from key
 
     def add_member(self, user):
         """Add a member to the project group"""
         self.student_keys.append(user.key)
         self.put()
-    
-    def add_task(self, task)
+
+    def add_task(self, task):
         """Add task to the project"""
         self.task_keys.append(task.key)
         self.put()
@@ -57,8 +57,8 @@ class Project(ndb.Model):
         }
         if include_relationships:
             obj = {
-                'course' = self.course
-                'members' = map(lambda x: x.as_json(), self.members)
-                'tasks' = map(lambda y: y.as_json(), self.tasks)
+                'course': self.course,
+                'members': map(lambda x: x.as_json(), self.members),
+                'tasks': map(lambda y: y.as_json(), self.tasks)
             }
         return obj

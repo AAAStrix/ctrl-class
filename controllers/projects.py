@@ -20,7 +20,7 @@ class ProjectListHandler(webapp2.RequestHandler):
         Creates a new project object with some title
 
         Automatically adds the user as a member of the project and proj. to the user
-        
+
         Adds reference to course it belongs to
         """
         title = self.request.get('title')
@@ -55,7 +55,7 @@ class ProjectCreateHandler(webapp2.RequestHandler):
         course_key = Project.get_course_by_name(course)
         self.auth.user.create_project(project, course_key)
         render_json(self)
-        
+
 class MemberListHandler(webapp2.RequestHandler):
     @user_required
     def get(self):
@@ -71,5 +71,4 @@ class MemberListHandler(webapp2.RequestHandler):
         project = Project.find_with_key(project_token)
         qry.join_project(project)
         render_json(self)
-        
 

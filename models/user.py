@@ -15,7 +15,7 @@ class User(ndb.Model):
     @property
     def projects(self):
         return map(lambda k: k.get(), self.project_keys)
-        
+
     @classmethod
     def get_from_authentication(cls, google_user):
         """Get or create a user based on the ID retrieved from Google"""
@@ -38,9 +38,9 @@ class User(ndb.Model):
             # Add the course to the student
             self.course_keys.append(course.key)
             self.put()
-            
+
     def create_project(self, project, course):
-    """Create a project for a student and make student a member"""
+        """Create a project for a student and make student a member"""
         if project:
             # Add the student as project member
             project.add_member(self)
@@ -50,9 +50,9 @@ class User(ndb.Model):
                 # Add the course the project is for
                 project.course = course.key
             self.put()
-            
+
     def join_project(self, project):
-    """Join an existing project"""
+        """Join an existing project"""
         if project:
             # Add the student as project member
             project.add_member(self)
@@ -67,7 +67,7 @@ class User(ndb.Model):
         }
         if include_relationships:
             obj = {
-                'courses' = map(lambda x: x.as_json(), self.courses)
-                'projects' = map(lambda y: y.as_json(), self.projects)
+                'courses': map(lambda x: x.as_json(), self.courses),
+                'projects': map(lambda y: y.as_json(), self.projects)
             }
         return obj

@@ -29,7 +29,7 @@ routes = [
     ('/courses', CourseListHandler),
     ('/course', CourseHandler),
     ('/courses/add', CourseAddHandler),
-    ('/courses/search', CourseSearchHandler)
+    ('/courses/search', CourseSearchHandler),
     ('/projects', ProjectListHandler),
     ('/project', ProjectHandler),
     ('/projects/add_project', ProjectCreateHandler),
