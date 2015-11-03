@@ -21,5 +21,3 @@ class MainHandler(webapp2.RequestHandler):
                  Questions? Contact us at contact@ctrl-class.appspotmail.com. \n\n\
                  -The ctrl-class team'
         mail.send_mail(from_address, self.auth.user.email, subject, body)
-
-        
