@@ -25,9 +25,9 @@ class Project(ndb.Model):
         self.member_keys.append(user.key)
         self.put()
 
-    def add_task(self, task):
+    def add_task(self, task_key):
         """Add task to the project"""
-        self.task_keys.append(task.key)
+        self.task_keys.append(task_key)
         self.put()
 
     def as_json(self, include_relationships=False):

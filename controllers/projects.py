@@ -37,14 +37,10 @@ class ProjectHandler(webapp2.RequestHandler):
     def get(self):
         project_token = self.request.get('key')
         project = Project.find_with_key(project_token)
-        tasks = self.auth.user.tasks_for_project(project)
-        task_json = map(lambda t: t.as_json(), tasks)
-        #members = self.auth.user.
-        #member_json = map(lambda m: m.as_json(), members)
+        task_json = map(lambda t: t.as_json(), project.tasks)
         params = {
             'project': project,
             'task_json': task_json,
-            #'member_json': member_json,
             'course_key': self.request.get('course_key'),
             'project_key': project.key.urlsafe(),
         }
@@ -76,7 +72,7 @@ class ProjectCreateHandler(webapp2.RequestHandler):
         self.auth.user.add_project(project)
         project.put()
         self.redirect(course.url)
-        
+
 class TaskCreateHandler(webapp2.RequestHandler):
 
     @user_required
@@ -92,18 +88,14 @@ class TaskCreateHandler(webapp2.RequestHandler):
             course_key -> NDB key for the course to add to
             title -> Title to use for the new task
         """
-        
         project = Project.find_with_key(self.request.get('project_key'))
-        course = Course.find_with_key(project.course)
-        #course = Course.find_with_key(self.request.get('course_key'))
-        #course_key = project.course.urlsafe()
 
         # Create the new Task object
         task_title = self.request.get('title')
         task = Task(title=task_title)
+        task_key = task.put()
 
-        project.add_task(task)
-        task.put()
+        project.add_task(task_key)
         self.redirect(project.url)
 
 class MemberListHandler(webapp2.RequestHandler):
@@ -125,6 +117,6 @@ class MemberListHandler(webapp2.RequestHandler):
         project.put()
         render_json(self)
         self.redirect(project.url)
-        
+
 
 

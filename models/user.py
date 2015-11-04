@@ -48,7 +48,7 @@ class User(ndb.Model):
         c_key = course.key
         matching_projects = [p for p in self.projects if p.course == c_key]
         return matching_projects
-        
+
     def tasks_for_project(self, project):
         """
         Return a list of just the tasks that belong to some project
