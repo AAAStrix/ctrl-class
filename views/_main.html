@@ -35,12 +35,14 @@
             <label>projects</label>
           </div>
           <div id="list">
-              <ul>
-                <li>1520 WebApp</li>
-                <li>1501 LZW</li>
-                <li>1501 Midterm</li>
-                <li> + add group</li>
-            </ul>
+               <ul>
+                {% for project in auth.user.projects %}
+                  <li>
+                    <a href='{{ project.url }}'>{{ project.title }}</a>
+                  </li>
+                {% endfor %}
+                <li><a href='/courses/add'> + add new project</a></li>
+              </ul>
           </div>
         </div>
       </div> <!--This ends <div class="col-sm-3" id="left_sidebar"-->

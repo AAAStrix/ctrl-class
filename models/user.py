@@ -48,6 +48,17 @@ class User(ndb.Model):
         c_key = course.key
         matching_projects = [p for p in self.projects if p.course == c_key]
         return matching_projects
+        
+    def tasks_for_project(self, project):
+        """
+        Return a list of just the tasks that belong to some project
+
+        Using projects_for_course as template
+        """
+        p_key = project.key
+        matching_tasks = [t for t in project.tasks if p.project == p_key]
+        return matching_tasks
+
 
     def add_project(self, project):
         """
@@ -64,15 +75,6 @@ class User(ndb.Model):
             self.project_keys.append(project.key)
             self.put()
 
-    def join_project(self, project):
-        """Join an existing project"""
-        if project:
-            # Add the student as project member
-            project.add_member(self)
-            # Add the project to the student
-            self.project_keys.append(project.key)
-            self.put()
-
     def as_json(self, include_relationships=False):
         """Get the JSON representation of a user"""
         obj = {
@@ -82,6 +84,7 @@ class User(ndb.Model):
             obj = {
                 'courses': map(lambda x: x.as_json(), self.courses),
                 'projects': map(lambda y: y.as_json(), self.projects)
+                #do we need to iterate through tasks here?
             }
         return obj
 

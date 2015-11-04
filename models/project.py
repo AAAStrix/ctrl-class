@@ -45,14 +45,10 @@ class Project(ndb.Model):
         }
         if include_relationships:
             obj['course'] = self.course
-            # obj['members'] = map(lambda x: x.as_json(), self.members),
-            # obj['tasks'] = map(lambda y: y.as_json(), self.tasks)
+            obj['members'] = map(lambda x: x.as_json(), self.members),
+            obj['tasks'] = map(lambda y: y.as_json(), self.tasks)
         return obj
 
     @classmethod
     def find_with_key(cls, key):
         return ndb.Key(urlsafe=key).get()
-
-    # def get_course_by_name(title):
-        # (todo) check name against self.auth.user.courses
-        # (todo) update course key from key
