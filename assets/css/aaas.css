@@ -225,6 +225,9 @@ h2 {
 	color: #ffd02a;
     font-size: 60px;
 }
+.navbar-brand label:hover {
+	cursor: hand;
+}
 
 #left_sidebar {
 	background: #E6E4E4;
@@ -308,7 +311,13 @@ h2 {
 
 #course-list ul a {
 	text-decoration: none;
-	color: darkgray;
+	color: #222222;
+}
+
+#classy-link{
+	text-decoration: none;
+	color: black;
+	font-weight: 400;
 }
 /*.course-box:focus {
 	outline: none;

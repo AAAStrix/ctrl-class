@@ -26,7 +26,7 @@
   <project-list projects="{window.projects}"></project-list>
 
   <form method='POST' action='/projects/add_project?course_key={{ course_key }}'>
-    <input type='text' name='title' placeholder='Create a new project'/>
+    <input type='text' id="course-box" name='title' placeholder='Create a new project'/>
   </form>
 
 {% endblock %}
