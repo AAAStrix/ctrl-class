@@ -19,7 +19,9 @@ def render_template(handler, templatename, templatevalues={}):
 
 def render_json(handler, status=200, obj={}):
     handler.response.status = status
-    handler.response.out.write(json.dumps(obj))
+    if not isinstance(obj, str):
+        obj = json.dumps(obj)
+    handler.response.out.write(obj)
 
 
 def tokenize_autocomplete(phrase):

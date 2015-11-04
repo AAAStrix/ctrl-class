@@ -21,6 +21,7 @@ from controllers.authentication import LoginHandler
 from controllers.homepage import MainHandler
 from controllers.courses import CourseListHandler, CourseHandler, CourseAddHandler, CourseSearchHandler
 from controllers.projects import ProjectListHandler, ProjectHandler, ProjectCreateHandler, TaskCreateHandler, MemberListHandler
+from controllers.tasks import TaskHandler
 
 # Map Routes
 routes = [
@@ -35,6 +36,7 @@ routes = [
     ('/projects/add', ProjectCreateHandler),
     ('/project/add_task', TaskCreateHandler),
     ('/project/members', MemberListHandler),
+    ('/task/toggle', TaskHandler)
 ]
 
 app = webapp2.WSGIApplication(routes, debug=True)

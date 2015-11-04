@@ -16,5 +16,5 @@ class Task(ndb.Model):
         return json.dumps(obj)
 
     @classmethod
-    def find_with_key(cls, token):
+    def find_with_key(cls, key):
         return ndb.Key(urlsafe=key).get()
