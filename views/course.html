@@ -1,54 +1,33 @@
-{% extends "_base.html" %}
+{% extends "_main.html" %}
 
-{% block bodycontent %}
+{% block jscontent %}
+  <script type='text/javascript' src='/assets/js/react.min.js'></script>
+  <script type='text/javascript' src='/assets/js/react-dom.min.js'></script>
+  <script type='text/javascript' src='/assets/js/reactive-elements.min.js'></script>
+  <script type='text/javascript' src='/assets/js/babel.min.js'></script>
+  <script type='text/javascript' src='https://code.jquery.com/jquery-2.1.4.min.js'></script>
+  <script type='text/babel' src='/assets/js/components/project-task-list.js'></script>
+  <script>
+    window.tasks = {{ task_json|safe }};
+    window.projects = {{ project_json|safe }};
+  </script>
+{% endblock %}
+
+{% block maincontent %}
 
   <h1>{{ course.title }}</h1>
 
   <h2>All Tasks</h2>
 
-  <ul class='task-list'>
-    <li class='task'>
-      <input type='checkbox' />This is some task
-    </li>
-  </ul>
+  <task-list tasks="{window.tasks}"></task-list>
 
   <h2>Projects</h2>
 
-  <div class='projects'>
-    <div class='project'>
-      <h3>Some Project</h3>
-      <ul class='task-list'>
-        <li class='task'>
-          <input type='checkbox'> This is some task
-        </li>
-        <li class='task'>
-          <input type='checkbox'> This is some other task
-        </li>
-      </ul>
-    </div>
-    <div class='project'>
-      <h3>Some Project</h3>
-      <ul class='task-list'>
-        <li class='task'>
-          <input type='checkbox'> This is some task
-        </li>
-        <li class='task'>
-          <input type='checkbox'> This is some other task
-        </li>
-      </ul>
-    </div>
-    <div class='project'>
-      <h3>Some Project</h3>
-      <ul class='task-list'>
-        <li class='task'>
-          <input type='checkbox'> This is some task
-        </li>
-        <li class='task'>
-          <input type='checkbox'> This is some other task
-        </li>
-      </ul>
-    </div>
-  </div>
+  <project-list projects="{window.projects}"></project-list>
+
+  <form method='POST' action='/projects/add_project?course_key={{ course_key }}'>
+    <input type='text' name='title' placeholder='Create a new project'/>
+  </form>
 
 {% endblock %}
 

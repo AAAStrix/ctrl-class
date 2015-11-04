@@ -1,3 +1,23 @@
+class EmptyPlaceholder extends React.Component {
+  render() {
+    const label = this.props.children;
+    const containerStyle = {
+      width: '100%'
+    };
+    const headerStyle = {
+      color: 'grey',
+      fontWeight: 'bold',
+      textAlign: 'center',
+      width: '100%'
+    };
+    return (
+      <div className='well' style={containerStyle}>
+        <h2 style={headerStyle}>{label}</h2>
+      </div>
+    );
+  }
+}
+
 class TaskItem extends React.Component {
   constructor(props) {
     super(props);
@@ -38,12 +58,15 @@ class TaskItem extends React.Component {
 
 class TaskList extends React.Component {
   render() {
-    const tasks = this.props.tasks;
+    let tasks = this.props.tasks.map((task) => {
+      return <TaskItem task={task} />
+    });
+    if (tasks.length === 0) {
+      tasks = <EmptyPlaceholder>No Tasks</EmptyPlaceholder>;
+    }
     return (
       <ul className='task-list'>
-        {tasks.map((task) => {
-          return <TaskItem task={task} />
-        })}
+        {tasks}
       </ul>
     );
   }
@@ -63,11 +86,15 @@ class ProjectItem extends React.Component {
 
 class ProjectList extends React.Component {
   render() {
+    let projects = this.props.projects.map((project) => {
+      return <ProjectItem project={project} />
+    });
+    if (projects.length === 0) {
+      projects = <EmptyPlaceholder>No Projects</EmptyPlaceholder>;
+    }
     return (
       <div className='projects'>
-        {this.props.projects.map((project) => {
-          return <ProjectItem project={project} />
-        })}
+        {projects}
       </div>
     );
   }

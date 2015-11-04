@@ -6,10 +6,84 @@ class User(ndb.Model):
     email = ndb.StringProperty()
 
     course_keys = ndb.KeyProperty(repeated=True, kind='Course')
+    project_keys = ndb.KeyProperty(repeated=True, kind='Project')
 
     @property
     def courses(self):
         return map(lambda k: k.get(), self.course_keys)
+
+    @property
+    def projects(self):
+        return map(lambda k: k.get(), self.project_keys)
+
+    def add_course(self, course):
+        """Add a student to a course and vice versa"""
+        if course:
+            # Add the student to the course
+            course.add_student(self)
+            # Add the course to the student
+            self.course_keys.append(course.key)
+            self.put()
+
+    def projects_for_course(self, course):
+        """
+        Return a list of just the projects that belong to some course
+
+        Note: Inefficient implementation.  Instead of using a query to look up
+        just the projects that match the course, we take a list of all of the
+        projects that this user belongs to and then just check if the project
+        belongs to the specified course
+
+        The array comprehension belong might look kind of complicated.  In
+        essence, it does the following on one line:
+
+            matching_projects = []
+            for p in self.projects:
+                if p.course = c_key:
+                    matching_projects.append(p)
+
+        Using array comprehension is a much more Python-y way of doing the
+        above.
+        """
+        c_key = course.key
+        matching_projects = [p for p in self.projects if p.course == c_key]
+        return matching_projects
+
+    def add_project(self, project):
+        """
+        Create a project for a student and make student a member
+
+        Arguments:
+            project: -> Project Model object
+            course: -> Course Key to add to project
+        """
+        if project:
+            # Add the student as project member
+            project.add_member(self)
+            # Add the project to the student
+            self.project_keys.append(project.key)
+            self.put()
+
+    def join_project(self, project):
+        """Join an existing project"""
+        if project:
+            # Add the student as project member
+            project.add_member(self)
+            # Add the project to the student
+            self.project_keys.append(project.key)
+            self.put()
+
+    def as_json(self, include_relationships=False):
+        """Get the JSON representation of a user"""
+        obj = {
+            'email': self.email
+        }
+        if include_relationships:
+            obj = {
+                'courses': map(lambda x: x.as_json(), self.courses),
+                'projects': map(lambda y: y.as_json(), self.projects)
+            }
+        return obj
 
     @classmethod
     def get_from_authentication(cls, google_user):
@@ -24,21 +98,3 @@ class User(ndb.Model):
             user.put()
 
         return user
-
-    def add_course(self, course):
-        """Add a student to a course and vice versa"""
-        if course:
-            # Add the student to the course
-            course.add_student(self)
-            # Add the course to the student
-            self.course_keys.append(course.key)
-            self.put()
-
-    def as_json(self, include_relationships=False):
-        """Get the JSON representation of a user"""
-        obj = {
-            'email': self.email
-        }
-        if include_relationships:
-            obj['courses'] = map(lambda x: x.as_json(), self.courses)
-        return obj
