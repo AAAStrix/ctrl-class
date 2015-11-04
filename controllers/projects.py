@@ -4,6 +4,7 @@ from utils import render_template, render_json
 from models.project import Project
 from models.course import Course
 from models.task import Task
+from models.user import User
 
 
 class ProjectListHandler(webapp2.RequestHandler):
@@ -25,9 +26,7 @@ class ProjectListHandler(webapp2.RequestHandler):
         Adds reference to course it belongs to
         """
         title = self.request.get('title')
-        course = self.request.get('course')
-        course_key = Project.get_course_by_name(course) # needs implementing
-        project = Project.new(title, course_key)
+        course = Course.find_with_key(self.request.get('course_key'))
         self.auth.user.create_project(project)
         self.redirect(project.url)
 
@@ -38,16 +37,21 @@ class ProjectHandler(webapp2.RequestHandler):
     def get(self):
         project_token = self.request.get('key')
         project = Project.find_with_key(project_token)
+        task_json = map(lambda t: t.as_json(), project.tasks)
         params = {
-            'project': project
+            'project': project,
+            'task_json': task_json,
+            'course_key': self.request.get('course_key'),
+            'project_key': project.key.urlsafe(),
         }
         render_template(self, 'project.html', params)
+
 
 class ProjectCreateHandler(webapp2.RequestHandler):
 
     @user_required
     def get(self):
-        render_template(self, 'add_project.html')
+        render_template(self, 'project.html')
 
     @user_required
     def post(self):
@@ -69,19 +73,50 @@ class ProjectCreateHandler(webapp2.RequestHandler):
         project.put()
         self.redirect(course.url)
 
+class TaskCreateHandler(webapp2.RequestHandler):
+
+    @user_required
+    def get(self):
+        render_template(self, 'project.html')
+
+    @user_required
+    def post(self):
+        """
+        Endpoint to create a new task
+
+        Request Parameters:
+            course_key -> NDB key for the course to add to
+            title -> Title to use for the new task
+        """
+        project = Project.find_with_key(self.request.get('project_key'))
+
+        # Create the new Task object
+        task_title = self.request.get('title')
+        task = Task(title=task_title)
+        task_key = task.put()
+
+        project.add_task(task_key)
+        self.redirect(project.url)
+
 class MemberListHandler(webapp2.RequestHandler):
     @user_required
     def get(self):
         params = {
             'members': self.auth.user.members
         }
-        render_template(self, 'members.html', params)
+        render_template(self, 'project.html', params)
 
     @user_required
     def post(self):
-        email = self.get.request('email')
+        ''' Ugly way to do this for now, but it's operational '''
+        email = self.request.get('email')
         qry = User.query(User.email == email)
-        project = Project.find_with_key(project_token)
-        qry.join_project(project)
+        user = qry.get()
+        project = Project.find_with_key(self.request.get('project_key'))
+        user.add_project(project)
+        project.put()
         render_json(self)
+        self.redirect(project.url)
+
+
 

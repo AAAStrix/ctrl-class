@@ -10,24 +10,37 @@
   <script>
     window.tasks = {{ task_json|safe }};
     window.projects = {{ project_json|safe }};
+    window.members = {{member_json|safe }};
   </script>
 {% endblock %}
 
 {% block maincontent %}
 
-  <h1>{{ course.title }}</h1>
+  <h1>{{ course.title }} </h1>
 
-  <h2>All Tasks</h2>
+  <h2>{{ project.title }}</h2>
+
+  <h2>Tasks</h2>
 
   <task-list tasks="{window.tasks}"></task-list>
 
-  <h2>Projects</h2>
-
-  <project-list projects="{window.projects}"></project-list>
-
-  <form method='POST' action='/projects/add?course_key={{ course_key }}'>
-    <input type='text' name='title' placeholder='Create a new project'/>
+  <form method='POST' action='/project/add_task?project_key={{ project_key }}'>
+    <input type='text' name='title' placeholder='Create a new task'/>
+  </form>
+  
+  <h2>Members</h2>
+    <div id="list">
+        <ul>
+        {% for member in project.members %}
+        <li>
+        {{ member.email }}
+        </li>
+        {% endfor %}
+        </ul>
+    </div>
+  
+  <form method='POST' action='/project/members?project_key={{ project_key }}'>
+    <input type='text' name='email' placeholder='Add a new group member'/>
   </form>
 
 {% endblock %}
-
