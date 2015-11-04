@@ -6,12 +6,9 @@ from models.project import Project
 		
 class TaskHandler(webapp2.RequestHandler):
 	
-	@user_required
-	def get(self):
+	def post(self):
 		task_token = self.request.get('key')
 		task = Task.find_with_key(task_token)
-		
-	def post(self):
 		task.completed == true
 		task.put()
 		render_json(self)
