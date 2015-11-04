@@ -3,25 +3,6 @@ from utils.decorators import user_required
 from utils import render_template, render_json
 from models.task import Task
 from models.project import Project	
-
-class TaskListHandler(webapp2.RequestHandler):
-
-	@user_required
-	def get(self):
-		params = {
-			'tasks': self.auth.user.tasks
-		}
-		render_template(self, 'task_list.html', params)
-		
-	@user_required
-	def post(self):
-		title = self.request.get('title')
-		project = self.request.get('project')
-		completed = self.request.get('completed')
-		project_key = Task.get_project_by_name(project)
-		task = Task.new(title, project_key, completed)
-		self.auth.user.create_task(task)
-		self.redirect(task.url)
 		
 class TaskHandler(webapp2.RequestHandler):
 	
@@ -33,6 +14,9 @@ class TaskHandler(webapp2.RequestHandler):
 			'task': task
 		}
 		render_template(self, 'task.html', params)
+		
+	def post(self):
+		task.completed == true
 		
 class TaskCreateHandler(webapp2.RequestHandler):
 	
