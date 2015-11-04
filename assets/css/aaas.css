@@ -206,6 +206,16 @@ body {
 	-webkit-padding-start: 0px;
 }
 
+#list a {
+	text-decoration: none;
+	color: black;
+}
+
+#add-link a {
+	text-decoration: none;
+	color: darkgray;
+}
+
 #main_square {
 	border-radius: 18px;
 	padding: 9px;
@@ -234,6 +244,21 @@ body {
 	padding: 0;
 }
 
+#course-list {
+	font-family: 'Comfortaa', cursive;
+	font-size: 18px;
+	font-weight: 300;
+	color: black;
+}
+
+#course-list ul {
+	list-style-type: none;
+}
+
+#course-list ul a {
+	text-decoration: none;
+	color: darkgray;
+}
 /*.course-box:focus {
 	outline: none;
 	border-color: #bbb;
