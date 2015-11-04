@@ -16,18 +16,18 @@ class TaskHandler(webapp2.RequestHandler):
 		task.put()
 		render_json(self)
 		
-class TaskCreateHandler(webapp2.RequestHandler):
+//class TaskCreateHandler(webapp2.RequestHandler):
 	
-	@user_required
-	def get(self):
-		render_template(self, 'add_task.html')
+	//@user_required
+	//def get(self):
+		//render_template(self, 'add_task.html')
 		
-	def post(self):
-		task_token = self.request.get('key')
-		task = Task.find_with_key(task_token)
-		project_key = Task.get_project_by_name(project)
-		self.auth.user.create_task(task, project_key)
-		render_json(self)
+	//def post(self):
+		//task_token = self.request.get('key')
+		//task = Task.find_with_key(task_token)
+		//project_key = Task.get_project_by_name(project)
+		//self.auth.user.create_task(task, project_key)
+		//render_json(self)
 		
 		
 		
