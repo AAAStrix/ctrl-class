@@ -10,13 +10,11 @@ class TaskHandler(webapp2.RequestHandler):
 	def get(self):
 		task_token = self.request.get('key')
 		task = Task.find_with_key(task_token)
-		params = {
-			'task': task
-		}
-		render_template(self, 'task.html', params)
 		
 	def post(self):
 		task.completed == true
+		task.put()
+		render_json(self)
 		
 class TaskCreateHandler(webapp2.RequestHandler):
 	
