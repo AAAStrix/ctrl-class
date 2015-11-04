@@ -1,8 +1,26 @@
-{% extends "_base.html" %}
-{% block bodycontent %}
+{% extends "_main.html" %}
 
+{% block jscontent %}
+  <script type='text/javascript' src='/assets/js/react.min.js'></script>
+  <script type='text/javascript' src='/assets/js/react-dom.min.js'></script>
+  <script type='text/javascript' src='/assets/js/reactive-elements.min.js'></script>
+  <script type='text/javascript' src='/assets/js/babel.min.js'></script>
+  <script type='text/javascript' src='https://code.jquery.com/jquery-2.1.4.min.js'></script>
+  <script type='text/babel' src='/assets/js/components/project-task-list.js'></script>
+  <script>
+    window.tasks = {{ task_json|safe }};
+    window.projects = {{ project_json|safe }};
+  </script>
+{% endblock %}
 
-  
-  
+{% block maincontent %}
+
+  <h2>Due Soon</h2>
+
+  <task-list tasks="{window.tasks}"></task-list>
+
+  <h2>Current Projects</h2>
+
+  <project-list projects="{window.projects}"></project-list>
 
 {% endblock %}
