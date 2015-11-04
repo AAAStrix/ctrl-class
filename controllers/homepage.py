@@ -1,6 +1,5 @@
 import webapp2
 from utils.decorators import user_required
-from google.appengine.api import mail
 from utils import render_template
 
 
@@ -16,12 +15,3 @@ class MainHandler(webapp2.RequestHandler):
             'task_json': task_json
         }
         render_template(self, 'home.html', params)
-
-    @user_required
-    def post(self):
-        from_address = 'contact@ctrl-class.appspotmail.com'
-        subject = 'Contact from ctrl-class'
-        body = 'Welcome to ctrl-class! Take control over your courses and projects.\n\
-                 Questions? Contact us at contact@ctrl-class.appspotmail.com. \n\n\
-                 -The ctrl-class team'
-        mail.send_mail(from_address, self.auth.user.email, subject, body)
