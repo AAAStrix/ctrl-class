@@ -8,12 +8,8 @@ class MainHandler(webapp2.RequestHandler):
 
     @user_required
     def get(self):
-        project_json = map(lambda x: x.as_json(), self.auth.user.projects)
-        task_json = [{
-            'title': 'This is a task that is due soon'
-        }, {
-            'title': 'This is some other task'
-        }]
+        project_json = map(lambda x: x.as_json(include_relationships=True), self.auth.user.projects)
+        task_json = map(lambda x: x.as_json(), self.auth.user.tasks);
         params = {
             'courses': self.auth.user.courses,
             'project_json': project_json,
