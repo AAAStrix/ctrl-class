@@ -9,8 +9,6 @@
   <script type='text/babel' src='/assets/js/components/project-task-list.js'></script>
   <script>
     window.tasks = {{ task_json|safe }};
-    window.projects = {{ project_json|safe }};
-    window.members = {{member_json|safe }};
   </script>
 {% endblock %}
 
@@ -27,7 +25,7 @@
   <form method='POST' action='/project/add_task?project_key={{ project_key }}'>
     <input type='text' name='title' placeholder='Create a new task'/>
   </form>
-  
+
   <h2>Members</h2>
     <div id="list">
         <ul>
@@ -38,7 +36,7 @@
         {% endfor %}
         </ul>
     </div>
-  
+
   <form method='POST' action='/project/members?project_key={{ project_key }}'>
     <input type='text' name='email' placeholder='Add a new group member'/>
   </form>

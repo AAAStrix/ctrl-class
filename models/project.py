@@ -44,8 +44,8 @@ class Project(ndb.Model):
             'tasks': []
         }
         if include_relationships:
-            obj['course'] = self.course
-            obj['members'] = map(lambda x: x.as_json(), self.members),
+            # obj['course'] = self.course
+            # obj['members'] = map(lambda x: x.as_json(), self.members),
             obj['tasks'] = map(lambda y: y.as_json(), self.tasks)
         return obj
 

@@ -1,4 +1,5 @@
 from google.appengine.ext import ndb
+from services.mail import send_welcome_email
 
 
 class User(ndb.Model):
@@ -15,6 +16,14 @@ class User(ndb.Model):
     @property
     def projects(self):
         return map(lambda k: k.get(), self.project_keys)
+
+    @property
+    def tasks(self):
+        """
+        Get all of the tasks for all of the projects that the user belongs to
+        """
+        task_arrays = map(lambda p: p.tasks, self.projects);
+        return reduce(lambda t, s: t + s, task_arrays, []);
 
     def add_course(self, course):
         """Add a student to a course and vice versa"""
@@ -48,6 +57,11 @@ class User(ndb.Model):
         c_key = course.key
         matching_projects = [p for p in self.projects if p.course == c_key]
         return matching_projects
+
+    def tasks_for_course(self, course):
+        projects = self.projects_for_course(course)
+        task_arrays = map(lambda p: p.tasks, projects)
+        return reduce(lambda t, s: t + s, task_arrays, [])
 
     def tasks_for_project(self, project):
         """
@@ -99,5 +113,5 @@ class User(ndb.Model):
             email = google_user.nickname()
             user = User(id=user_id, email=email)
             user.put()
-
+            send_welcome_email(user)
         return user
