@@ -33,7 +33,7 @@ class TaskHandler(webapp2.RequestHandler):
 		}
 		render_template(self, 'task.html', params)
 		
-class TaskCreateHandler(webapp2.RequestHandler)
+class TaskCreateHandler(webapp2.RequestHandler):
 	
 	@user_required
 	def get(self):
