@@ -1,4 +1,5 @@
 from google.appengine.ext import ndb
+from services.mail import send_welcome_email
 
 
 class User(ndb.Model):
@@ -112,5 +113,5 @@ class User(ndb.Model):
             email = google_user.nickname()
             user = User(id=user_id, email=email)
             user.put()
-
+            send_welcome_email(user)
         return user
