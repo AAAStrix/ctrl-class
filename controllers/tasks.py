@@ -17,8 +17,9 @@ class TaskListHandler(webapp2.RequestHandler):
 	def post(self):
 		title = self.request.get('title')
 		project = self.request.get('project')
+		completed = self.request.get('completed')
 		project_key = Task.get_project_by_name(project)
-		task = Task.new(title, project_key)
+		task = Task.new(title, project_key, completed)
 		self.auth.user.create_task(task)
 		self.redirect(task.url)
 		
