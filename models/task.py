@@ -1,4 +1,5 @@
 from google.appengine.ext import ndb
+import json
 
 
 class Task(ndb.Model):
@@ -12,7 +13,7 @@ class Task(ndb.Model):
             'title': self.title,
             'completed' : self.completed
         }
-        return obj
+        return json.dumps(obj)
 
     @classmethod
     def find_with_key(cls, token):
