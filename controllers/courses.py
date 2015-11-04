@@ -34,10 +34,14 @@ class CourseHandler(webapp2.RequestHandler):
         course = Course.find_with_key(course_token)
         projects = self.auth.user.projects_for_course(course)
         project_json = map(lambda p: p.as_json(), projects)
+        task_json = [{
+            'title': 'This is some task title'
+        }]
         params = {
             'course': course,
             'project_json': project_json,
-            'course_key': course.key.urlsafe()
+            'course_key': course.key.urlsafe(),
+            'task_json': task_json
         }
         render_template(self, 'course.html', params)
 
