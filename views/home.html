@@ -8,13 +8,8 @@
   <script type='text/javascript' src='https://code.jquery.com/jquery-2.1.4.min.js'></script>
   <script type='text/babel' src='/assets/js/components/project-task-list.js'></script>
   <script>
-    window.tasks = [
-      {
-        title: 'This is a task that is due soon',
-        completed: true
-      }
-    ];
-    window.projects = {{ project_json }};
+    window.tasks = {{ task_json|safe }};
+    window.projects = {{ project_json|safe }};
   </script>
 {% endblock %}
 
