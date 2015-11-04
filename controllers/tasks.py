@@ -25,7 +25,7 @@ class TaskListHandler(webapp2.RequestHandler):
 class TaskHandler(webapp2.RequestHandler):
 	
 	@user_required
-	def get(self)
+	def get(self):
 		task_token = self.request.get('key')
 		task = Task.find_with_key(task_token)
 		params = {
@@ -37,7 +37,7 @@ class TaskCreateHandler(webapp2.RequestHandler):
 	
 	@user_required
 	def get(self):
-		render_template(self, 'add_task.html
+		render_template(self, 'add_task.html')
 		
 	def post(self):
 		task_token = self.request.get('key')
