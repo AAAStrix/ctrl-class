@@ -32,8 +32,12 @@ class CourseHandler(webapp2.RequestHandler):
     def get(self):
         course_token = self.request.get('key')
         course = Course.find_with_key(course_token)
+        projects = self.auth.user.projects_for_course(course)
+        project_json = map(lambda p: p.as_json(), projects)
         params = {
-            'course': course
+            'course': course,
+            'project_json': project_json,
+            'course_key': course.key.urlsafe()
         }
         render_template(self, 'course.html', params)
 

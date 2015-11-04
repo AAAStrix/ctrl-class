@@ -14,44 +14,7 @@
         completed: true
       }
     ];
-    window.projects = [
-      {
-        title: 'Some Project',
-        tasks: [
-          {
-            key: 'abcd',
-            title: 'this is some task'
-          }
-        ]
-      }, {
-        title: 'Some Other Project',
-        tasks: [
-          {
-            key: 'abcd',
-            title: 'This is some other task'
-          }
-        ]
-      }, {
-        title: 'A third project',
-        tasks: [
-          {
-            key: 'abcd',
-            title: 'This is some other task'
-          }, {
-            key: 'abcd',
-            title: 'A second task!'
-          }
-        ]
-      }, {
-        title: 'A Fourth project',
-        tasks: [
-          {
-            key: 'abcd',
-            title: 'This is some other task'
-          }
-        ]
-      }
-    ];
+    window.projects = {{ project_json }};
   </script>
 {% endblock %}
 
