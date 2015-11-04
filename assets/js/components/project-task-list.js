@@ -85,9 +85,10 @@ class TaskList extends React.Component {
 class ProjectItem extends React.Component {
   render() {
     const project = this.props.project;
+    const url = `/project?key=${project.key}`;
     return (
       <div className='project'>
-        <h3>{project.title}</h3>
+        <h3><a href={url}>{project.title}</a></h3>
         <TaskList tasks={project.tasks} />
       </div>
     );
