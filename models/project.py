@@ -12,6 +12,7 @@ class Project(ndb.Model):
     def members(self):
         return map(lambda k: k.get(), self.member_keys)
 
+    @property
     def tasks(self):
         return map(lambda k: k.get(), self.task_keys)
 
@@ -19,29 +20,9 @@ class Project(ndb.Model):
     def url(self):
         return '/project?key={}'.format(self.key.urlsafe())
 
-    @classmethod
-    def new(cls, title):
-        """
-        Factory method for creating Project objects
-        """
-        # Create the new course objects
-        new_project = cls(title=title)
-        new_project.put()
-
-        # Return the new Project object
-        return new_project
-
-    @classmethod
-    def find_with_key(cls, key):
-        return ndb.Key(urlsafe=key).get()
-
-    # def get_course_by_name(title):
-        # (todo) check name against self.auth.user.courses
-        # (todo) update course key from key
-
     def add_member(self, user):
         """Add a member to the project group"""
-        self.student_keys.append(user.key)
+        self.member_keys.append(user.key)
         self.put()
 
     def add_task(self, task):
@@ -50,15 +31,28 @@ class Project(ndb.Model):
         self.put()
 
     def as_json(self, include_relationships=False):
-        """Get the JSON representation of a project"""
+        """
+        Get the JSON representation of a project
+
+        Note: It seems weird, but we need to include a "tasks" property in the
+        JSON even if we're not including the relationship because the front-end
+        code expects that property to be there for rendering purposes
+        """
         obj = {
             'key': self.key.urlsafe(),
-            'title': self.title
+            'title': str(self.title),
+            'tasks': []
         }
         if include_relationships:
-            obj = {
-                'course': self.course,
-                'members': map(lambda x: x.as_json(), self.members),
-                'tasks': map(lambda y: y.as_json(), self.tasks)
-            }
+            obj['course'] = self.course
+            # obj['members'] = map(lambda x: x.as_json(), self.members),
+            # obj['tasks'] = map(lambda y: y.as_json(), self.tasks)
         return obj
+
+    @classmethod
+    def find_with_key(cls, key):
+        return ndb.Key(urlsafe=key).get()
+
+    # def get_course_by_name(title):
+        # (todo) check name against self.auth.user.courses
+        # (todo) update course key from key

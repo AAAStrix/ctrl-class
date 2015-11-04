@@ -2,6 +2,7 @@ import webapp2
 from utils.decorators import user_required
 from utils import render_template, render_json
 from models.project import Project
+from models.course import Course
 from models.task import Task
 
 
@@ -50,11 +51,23 @@ class ProjectCreateHandler(webapp2.RequestHandler):
 
     @user_required
     def post(self):
-        project_token = self.request.get('key')
-        project = Project.find_with_key(project_token)
-        course_key = Project.get_course_by_name(course)
-        self.auth.user.create_project(project, course_key)
-        render_json(self)
+        """
+        Endpoint to create a new project
+
+        Request Parameters:
+            course_key -> NDB key for the course to add to
+            title -> Title to use for the new project
+        """
+        # Fetch the course object to add the project to
+        course = Course.find_with_key(self.request.get('course_key'))
+
+        # Create the new Project object
+        project_title = self.request.get('title')
+        project = Project(title=project_title, course=course.key)
+
+        self.auth.user.add_project(project)
+        project.put()
+        self.redirect(course.url)
 
 class MemberListHandler(webapp2.RequestHandler):
     @user_required
