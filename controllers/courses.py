@@ -33,10 +33,9 @@ class CourseHandler(webapp2.RequestHandler):
         course_token = self.request.get('key')
         course = Course.find_with_key(course_token)
         projects = self.auth.user.projects_for_course(course)
-        project_json = map(lambda p: p.as_json(), projects)
-        task_json = [{
-            'title': 'This is some task title'
-        }]
+        project_json = map(lambda p: p.as_json(include_relationships=True), projects)
+        tasks = self.auth.user.tasks_for_course(course)
+        task_json = map(lambda t: t.as_json(), tasks)
         params = {
             'course': course,
             'project_json': project_json,

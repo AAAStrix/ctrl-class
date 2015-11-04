@@ -1,3 +1,12 @@
+function parseStringArray(array) {
+  return array.map(function(item) {
+    if (typeof item === 'string') {
+      return JSON.parse(item);
+    }
+    return item;
+  });
+}
+
 class EmptyPlaceholder extends React.Component {
   render() {
     const label = this.props.children;
@@ -58,6 +67,7 @@ class TaskItem extends React.Component {
 
 class TaskList extends React.Component {
   render() {
+    this.props.tasks = parseStringArray(this.props.tasks);
     let tasks = this.props.tasks.map((task) => {
       return <TaskItem task={task} />
     });
@@ -75,9 +85,10 @@ class TaskList extends React.Component {
 class ProjectItem extends React.Component {
   render() {
     const project = this.props.project;
+    const url = `/project?key=${project.key}`;
     return (
       <div className='project'>
-        <h3>{project.title}</h3>
+        <h3><a href={url}>{project.title}</a></h3>
         <TaskList tasks={project.tasks} />
       </div>
     );

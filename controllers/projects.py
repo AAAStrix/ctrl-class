@@ -92,7 +92,7 @@ class TaskCreateHandler(webapp2.RequestHandler):
 
         # Create the new Task object
         task_title = self.request.get('title')
-        task = Task(title=task_title)
+        task = Task(title=task_title, completed=False)
         task_key = task.put()
 
         project.add_task(task_key)
