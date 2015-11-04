@@ -5,7 +5,7 @@ class Task(ndb.Model):
 	title = ndb.StringProperty()
 	completed = ndb.StringProperty()
 		
-	def as_json(self, include_relationships=False):
+	def as_json(self):
 		obj = {
 			'key': self.key.urlsafe(),
 			'title': self.title
