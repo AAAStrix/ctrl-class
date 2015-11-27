@@ -1,5 +1,5 @@
 import webapp2
-from utils.decorators import user_required
+from utils.decorators import user_required, protect_course
 from utils import render_template, render_json
 from models.course import Course
 
@@ -29,11 +29,12 @@ class CourseListHandler(webapp2.RequestHandler):
 class CourseHandler(webapp2.RequestHandler):
 
     @user_required
+    @protect_course('key')
     def get(self):
-        course_token = self.request.get('key')
-        course = Course.find_with_key(course_token)
+        course = self.params.course
         projects = self.auth.user.projects_for_course(course)
-        project_json = map(lambda p: p.as_json(include_relationships=True), projects)
+        project_json = map(lambda p: p.as_json(include_relationships=True),
+                           projects)
         tasks = self.auth.user.tasks_for_course(course)
         task_json = map(lambda t: t.as_json(), tasks)
         params = {
@@ -65,6 +66,12 @@ class CourseAddHandler(webapp2.RequestHandler):
 
     @user_required
     def post(self):
+        """
+        Add a user to a course
+
+        Note: Does not use the decorator, because the user does not belong
+        to the course yet
+        """
         course_token = self.request.get('key')
         course = Course.find_with_key(course_token)
         self.auth.user.add_course(course)

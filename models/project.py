@@ -6,7 +6,7 @@ class Project(ndb.Model):
     title = ndb.StringProperty()
     member_keys = ndb.KeyProperty(repeated=True, kind='User')
     task_keys = ndb.KeyProperty(repeated=True, kind='Task')
-    course = ndb.KeyProperty()
+    course_key = ndb.KeyProperty()
 
     @property
     def members(self):
@@ -15,6 +15,10 @@ class Project(ndb.Model):
     @property
     def tasks(self):
         return map(lambda k: k.get(), self.task_keys)
+
+    @property
+    def course(self):
+        return self.course_key.get()
 
     @property
     def url(self):
