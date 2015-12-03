@@ -1,3 +1,18 @@
+function debounce(func, wait, immediate) {
+	var timeout;
+	return function() {
+		var context = this, args = arguments;
+		var later = function() {
+			timeout = null;
+			if (!immediate) func.apply(context, args);
+		};
+		var callNow = immediate && !timeout;
+		clearTimeout(timeout);
+		timeout = setTimeout(later, wait);
+		if (callNow) func.apply(context, args);
+	};
+};
+
 class CourseSearchResult extends React.Component {
   handleClick(result) {
     const { key } = result;
@@ -38,6 +53,7 @@ class CourseSearchInput extends React.Component {
     super(props);
     this.state = { results: [], searchValue: '' };
     this.handleInputChange = this.handleInputChange.bind(this);
+    this.getResultsFromServer = debounce(this.getResultsFromServer.bind(this), 500);
   }
 
   getResultsFromServer(search) {
@@ -49,9 +65,9 @@ class CourseSearchInput extends React.Component {
       }
     })
   }
-
+  
   handleInputChange(event) {
-    const searchValue = event.target.value
+    const searchValue = event.target.value;
     this.setState({ searchValue });
     this.getResultsFromServer(searchValue);
   }
