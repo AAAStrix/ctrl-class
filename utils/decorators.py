@@ -113,7 +113,7 @@ def protect_task(param_name):
         def check_permissions(self, *args, **kwargs):
             task_token = self.request.get(param_name)
             task = Task.find_with_key(task_token)
-            if task in self.auth.users.tasks:
+            if task in self.auth.user.tasks:
                 Params.verify_attribute(self)
                 self.params.task = task
                 return handler(self, *args, **kwargs)
