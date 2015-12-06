@@ -76,3 +76,13 @@ class CourseAddHandler(webapp2.RequestHandler):
         course = Course.find_with_key(course_token)
         self.auth.user.add_course(course)
         render_json(self)
+
+
+class CourseRemoveHandler(webapp2.RequestHandler):
+
+    @user_required
+    @protect_course('key')
+    def get(self):
+        course = self.params.course
+        course.remove_student(self.auth.user)
+        self.redirect('/')

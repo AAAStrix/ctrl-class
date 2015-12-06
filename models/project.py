@@ -29,6 +29,21 @@ class Project(ndb.Model):
         self.member_keys.append(user.key)
         self.put()
 
+    def remove_member(self, user):
+        """
+        Remove a user from a project
+
+        Attributes:
+            user -> The user to remove
+        """
+        # Remove the user from the project
+        self.member_keys.remove(user.key)
+        self.put()
+
+        # Remove the project from the user
+        user.project_keys.remove(self.key)
+        user.put()
+
     def add_task(self, task_key):
         """Add task to the project"""
         self.task_keys.append(task_key)

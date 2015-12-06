@@ -29,5 +29,12 @@
     <input type='text' name='title' placeholder='Create a new project'/>
   </form>
 
+  <a style="color: red;"
+     onclick="return confirm('Are you sure you want to remove yourself from this course?');"
+     href='/courses/remove?key={{ course_key }}'
+     >
+    Remove this Course
+  </a>
+
 {% endblock %}
 

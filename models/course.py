@@ -60,6 +60,19 @@ class Course(ndb.Model):
         self.student_keys.append(user.key)
         self.put()
 
+    def remove_student(self, user):
+        # Remove user from course projects
+        for project in user.projects_for_course(self):
+            project.remove_member(user)
+
+        # Remove the user from the course
+        self.student_keys.remove(user.key)
+        self.put()
+
+        # Remove the course form the user
+        user.course_keys.remove(self.key)
+        user.put();
+
     def as_json(self, include_relationships=False):
         """Get the JSON representation of a course"""
         obj = {
