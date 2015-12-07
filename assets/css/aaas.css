@@ -128,7 +128,9 @@ h2 {
   background: #222222;
 }
 
-
+/*@media (max-width: 768px) {
+	
+}*/
 
 #divider_bottom {
 	clear: both;
@@ -199,6 +201,10 @@ h2 {
     color: #E6E4E4;
     font-size: 23px;
     text-transform: lowercase;
+}
+
+#navbar-header button {
+	margin-top: 18px;
 }
 /*#navbar_inner .container{
 	margin: 0px;
