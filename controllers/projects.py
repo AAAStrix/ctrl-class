@@ -1,8 +1,7 @@
 import webapp2
-from utils.decorators import user_required
+from utils.decorators import user_required, protect_project, protect_course
 from utils import render_template, render_json
 from models.project import Project
-from models.course import Course
 from models.task import Task
 from models.user import User
 
@@ -16,27 +15,13 @@ class ProjectListHandler(webapp2.RequestHandler):
         }
         render_template(self, 'project_list.html', params)
 
-    @user_required
-    def post(self):
-        """
-        Creates a new project object with some title
-
-        Automatically adds the user as a member of the project and proj. to the user
-
-        Adds reference to course it belongs to
-        """
-        title = self.request.get('title')
-        course = Course.find_with_key(self.request.get('course_key'))
-        self.auth.user.create_project(project)
-        self.redirect(project.url)
-
 
 class ProjectHandler(webapp2.RequestHandler):
 
     @user_required
+    @protect_project('key')
     def get(self):
-        project_token = self.request.get('key')
-        project = Project.find_with_key(project_token)
+        project = self.params.project
         task_json = map(lambda t: t.as_json(), project.tasks)
         params = {
             'project': project,
@@ -54,6 +39,7 @@ class ProjectCreateHandler(webapp2.RequestHandler):
         render_template(self, 'project.html')
 
     @user_required
+    @protect_course('course_key')
     def post(self):
         """
         Endpoint to create a new project
@@ -62,16 +48,15 @@ class ProjectCreateHandler(webapp2.RequestHandler):
             course_key -> NDB key for the course to add to
             title -> Title to use for the new project
         """
-        # Fetch the course object to add the project to
-        course = Course.find_with_key(self.request.get('course_key'))
+        course = self.params.course
 
         # Create the new Project object
         project_title = self.request.get('title')
-        project = Project(title=project_title, course=course.key)
+        project = Project(title=project_title, course_key=course.key)
 
         self.auth.user.add_project(project)
-        project.put()
         self.redirect(course.url)
+
 
 class TaskCreateHandler(webapp2.RequestHandler):
 
@@ -80,15 +65,16 @@ class TaskCreateHandler(webapp2.RequestHandler):
         render_template(self, 'project.html')
 
     @user_required
+    @protect_project('project_key')
     def post(self):
         """
         Endpoint to create a new task
 
         Request Parameters:
-            course_key -> NDB key for the course to add to
+            project_key -> NDB key for the project to add to
             title -> Title to use for the new task
         """
-        project = Project.find_with_key(self.request.get('project_key'))
+        project = self.params.project
 
         # Create the new Task object
         task_title = self.request.get('title')
@@ -97,6 +83,7 @@ class TaskCreateHandler(webapp2.RequestHandler):
 
         project.add_task(task_key)
         self.redirect(project.url)
+
 
 class MemberListHandler(webapp2.RequestHandler):
     @user_required
@@ -109,14 +96,23 @@ class MemberListHandler(webapp2.RequestHandler):
     @user_required
     def post(self):
         ''' Ugly way to do this for now, but it's operational '''
+        # Get the user to invite
         email = self.request.get('email')
         qry = User.query(User.email == email)
         user = qry.get()
+
+        # TODO: Do something to handle the email being invalid
+
+        # Get the project to add to
         project = Project.find_with_key(self.request.get('project_key'))
-        user.add_project(project)
-        project.put()
-        render_json(self)
-        self.redirect(project.url)
 
-
-
+        # Ensure that the user is in the course for that project
+        course = project.course
+        if course in user.courses:
+            user.add_project(project)
+            project.put()
+            render_json(self)
+            self.redirect(project.url)
+        else:
+            # Do something to handle the error
+            render_template(self, 'not_found.html')
