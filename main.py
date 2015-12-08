@@ -18,7 +18,7 @@ import webapp2
 
 # Import Controllers
 from controllers.authentication import LoginHandler
-from controllers.homepage import MainHandler
+from controllers.homepage import MainHandler, AboutHandler
 from controllers.courses import CourseListHandler, CourseHandler, \
     CourseAddHandler, CourseRemoveHandler, CourseSearchHandler
 from controllers.projects import ProjectListHandler, ProjectHandler, \
@@ -29,6 +29,7 @@ from controllers.tasks import TaskHandler
 routes = [
     ('/', MainHandler),
     ('/login', LoginHandler),
+    ('/about', AboutHandler), 
     ('/courses', CourseListHandler),
     ('/course', CourseHandler),
     ('/courses/add', CourseAddHandler),
