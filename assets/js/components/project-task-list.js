@@ -129,9 +129,10 @@ class TaskItem extends React.Component {
 
 class TaskList extends React.Component {
   render() {
+    const project = this.props.project;
     this.props.tasks = parseStringArray(this.props.tasks);
     let tasks = this.props.tasks.map((task) => {
-      return <TaskItem task={task} />;
+      return <TaskItem task={task} project={project}/>;
     });
     if (tasks.length === 0) {
       tasks = <EmptyPlaceholder>No Tasks</EmptyPlaceholder>;
@@ -151,7 +152,7 @@ class ProjectItem extends React.Component {
     return (
       <div className='project'>
         <h3><a href={url}>{project.title}</a></h3>
-        <TaskList tasks={project.tasks} />
+        <TaskList tasks={project.tasks} project={project}/>
       </div>
     );
   }
