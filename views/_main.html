@@ -11,16 +11,15 @@
       	</button>
       	<a class="navbar-brand" href="/"><label>ctrl-class<label></a>
     </div>
-    
     	<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
   				<ul class="nav navbar-nav">
   					<li><a href="/">home</a></li>
     				<li><a href="/courses">courses<span class="sr-only">(current)</span></a></li>
+    				<li><a href="/about">about<span class=sr-only>(current)</span></a></li>
         		</ul>
         		<p class="navbar-text navbar-right">
           			welcome, <a href='{{ auth.logout_url }}'>{{ auth.user.email }}</a>
         		</p>
-    	
     	</div>
     </nav>
   </div>
