@@ -46,8 +46,10 @@ class Course(ndb.Model):
         """Find courses with a title that partially matched the query"""
         if len(query) == 0:
             return []
-        r = search.Index(name='course_title_autocomplete').search('title:{}'.format(query))
-        return [ndb.Key(urlsafe=m.doc_id).get() for m in r]
+        r = search.Index(name='course_title_autocomplete').search(
+            'title:{}'.format(query))
+        models = [ndb.Key(urlsafe=m.doc_id).get() for m in r]
+        return [item for item in models if item is not None]
 
     @classmethod
     def find_with_key(cls, key):
@@ -57,6 +59,19 @@ class Course(ndb.Model):
         """Add a student to the course"""
         self.student_keys.append(user.key)
         self.put()
+
+    def remove_student(self, user):
+        # Remove user from course projects
+        for project in user.projects_for_course(self):
+            project.remove_member(user)
+
+        # Remove the user from the course
+        self.student_keys.remove(user.key)
+        self.put()
+
+        # Remove the course form the user
+        user.course_keys.remove(self.key)
+        user.put();
 
     def as_json(self, include_relationships=False):
         """Get the JSON representation of a course"""

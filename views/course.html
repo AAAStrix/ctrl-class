@@ -1,6 +1,7 @@
 {% extends "_main.html" %}
 
 {% block jscontent %}
+  <script type='text/javascript' src="//cdnjs.cloudflare.com/ajax/libs/document-register-element/0.5.3/document-register-element.js">/* W3C Custom Elements */</script>
   <script type='text/javascript' src='/assets/js/react.min.js'></script>
   <script type='text/javascript' src='/assets/js/react-dom.min.js'></script>
   <script type='text/javascript' src='/assets/js/reactive-elements.min.js'></script>
@@ -29,6 +30,13 @@
     <input type='text' id="course-box" name='title' placeholder='Create a new project'/>
 
   </form>
+
+  <a style="color: red;"
+     onclick="return confirm('Are you sure you want to remove yourself from this course?');"
+     href='/courses/remove?key={{ course_key }}'
+     >
+    Remove this Course
+  </a>
 
 {% endblock %}
 

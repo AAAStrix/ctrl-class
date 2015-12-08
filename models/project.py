@@ -6,7 +6,7 @@ class Project(ndb.Model):
     title = ndb.StringProperty()
     member_keys = ndb.KeyProperty(repeated=True, kind='User')
     task_keys = ndb.KeyProperty(repeated=True, kind='Task')
-    course = ndb.KeyProperty()
+    course_key = ndb.KeyProperty()
 
     @property
     def members(self):
@@ -17,6 +17,10 @@ class Project(ndb.Model):
         return map(lambda k: k.get(), self.task_keys)
 
     @property
+    def course(self):
+        return self.course_key.get()
+
+    @property
     def url(self):
         return '/project?key={}'.format(self.key.urlsafe())
 
@@ -24,6 +28,21 @@ class Project(ndb.Model):
         """Add a member to the project group"""
         self.member_keys.append(user.key)
         self.put()
+
+    def remove_member(self, user):
+        """
+        Remove a user from a project
+
+        Attributes:
+            user -> The user to remove
+        """
+        # Remove the user from the project
+        self.member_keys.remove(user.key)
+        self.put()
+
+        # Remove the project from the user
+        user.project_keys.remove(self.key)
+        user.put()
 
     def add_task(self, task_key):
         """Add task to the project"""

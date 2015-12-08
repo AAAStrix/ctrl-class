@@ -55,7 +55,7 @@ class User(ndb.Model):
         above.
         """
         c_key = course.key
-        matching_projects = [p for p in self.projects if p.course == c_key]
+        matching_projects = [p for p in self.projects if p.course_key == c_key]
         return matching_projects
 
     def tasks_for_course(self, course):
