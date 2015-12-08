@@ -1,17 +1,18 @@
 {% extends "_base.html" %}
 {% block bodycontent %}
   <div id="navbar_inner">
-    <nav class="navbar navbar-inverse navbar-fixed-top">
+  <nav class="navbar navbar-inverse navbar-fixed-top">
       <div class="container-fluid">
         <a class="navbar-brand" href="/"><label>ctrl-class<label></a>
-        <ul class="nav navbar-nav">
-          <li><a href="/">home</a></li>
-          <li><a href="#">classes</a></li>
-        </ul>
-        <p class="navbar-text navbar-right">
-          welcome, <a href='{{ auth.logout_url }}'>{{ auth.user.email }}</a>
-        </p>
-      </div>
+  				<ul class="nav navbar-nav">
+  					<li><a href="/">home</a></li>
+    				<li><a href="/courses">courses<span class="sr-only">(current)</span></a></li>
+    				<li><a href="/about">about<span class=sr-only>(current)</span></a></li>
+        		</ul>
+        		<p class="navbar-text navbar-right">
+          			welcome, <a href='{{ auth.logout_url }}'>{{ auth.user.email }}</a>
+        		</p>
+    	</div>
     </nav>
   </div>
   <div class="container-fluid">
@@ -28,22 +29,26 @@
                     <a href='{{ course.url }}'>{{ course.title }}</a>
                   </li>
                 {% endfor %}
-                <li><a href='/courses/add'> + add new course</a></li>
-              </ul>
-            </div>
-          <div id="title">
-            <label>projects</label>
-          </div>
-          <div id="list">
-               <ul>
-                {% for project in auth.user.projects %}
-                  <li>
-                    <a href='{{ project.url }}'>{{ project.title }}</a>
-                  </li>
-                {% endfor %}
-              </ul>
+      					</ul>
+      					<ul id="add-link">
+    						<li><a href='/courses/add'>+ add course</a></li>
+  						</ul>
+  					</div>
+					<div id="title">
+						<label>projects</label>
+					</div>
+					<div id="list">
+						<!-- This makes a lot of assumptions about the project ndb structure, definitely double check it -->
+  						<ul>
+    						{% for project in projects %}
+        					<li>
+        					  <a href='{{ project.url }}'>{{ project.title }}</a>
+        					</li>
+      						{% endfor %}
+						</ul>
           </div>
         </div>
+    
       </div> <!--This ends <div class="col-sm-3" id="left_sidebar"-->
       <div class="col-sm-10">
         <div id="main_square">
@@ -53,4 +58,6 @@
       </div> <!--This ends <div class="col-sm-9" id="main_square">-->
     </div>
   </div>
+
+
 {% endblock %}

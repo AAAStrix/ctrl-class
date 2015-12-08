@@ -1,16 +1,16 @@
 {% extends "_main.html" %}
 {% block maincontent %}
 
-  <h1>Your Courses</h1>
-
-  <ul>
-    {% for course in courses %}
-      <li>
-        <a href='{{ course.url }}'>{{ course.title }}</a>
-      </li>
-    {% endfor %}
-  </ul>
-
-  <a href='/courses/add'>Add a Course</a>
+  <h1 id="bolded-title">Your Courses</h1>
+  <div id="course-list">
+    <ul>
+      {% for course in courses %}
+        <li>
+          <a href='{{ course.url }}'>{{ course.title }}</a>
+        </li>
+      {% endfor %}
+    </ul>
+  <div>
+  <a id="classy-link" href='/courses/add'><h3>Add New Course</h3></a>
 
 {% endblock %}

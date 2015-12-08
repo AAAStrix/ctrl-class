@@ -1,0 +1,34 @@
+{% extends "_main.html" %}
+
+{% block jscontent %}
+  <script type='text/javascript' src='/assets/js/react.min.js'></script>
+  <script type='text/javascript' src='/assets/js/react-dom.min.js'></script>
+  <script type='text/javascript' src='/assets/js/reactive-elements.min.js'></script>
+  <script type='text/javascript' src='/assets/js/babel.min.js'></script>
+  <script type='text/javascript' src='https://code.jquery.com/jquery-2.1.4.min.js'></script>
+  <script src="assets/js/bootstrap.min.js"></script>
+  <script type='text/babel' src='/assets/js/components/project-task-list.js'></script>
+  <script>
+    window.tasks = {{ task_json|safe }};
+    window.projects = {{ project_json|safe }};
+  </script>
+{% endblock %}
+
+{% block maincontent %}
+
+  <h2>About ctrl-class</h2>
+  <p>Our goal is to make your experience as a student as easy as it can be. We've made a tool for you to organize 
+  		your classes, projects, and to-do's all in one place.</p>
+  <h2>Tips</h2>
+  <div>
+		<ul>
+			<li>Click the courses page or the "add courses" button to add classes to your roster</li>
+			<li>From any course page, click on "Create a new project" to add a project for your class</li>
+			<li>From any project page, click on "add a new task" to add to-do's for the project you're working on</li>
+			<li>From any course or project page, see the tasks you have yet to accomplish</li>
+			<li>Groups can share projects and tasks so when someone finishes a task in a project, all group members can see what is done!</li>
+		</ul>
+  </div>
+
+  
+{% endblock %}
