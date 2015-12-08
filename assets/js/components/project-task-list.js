@@ -122,6 +122,10 @@ class TaskItem extends React.Component {
       <li className='task'>
         <input type='checkbox' onChange={clickHandler} checked={checked} />
         <span style={style}>{task.title}</span>
+		&nbsp;
+		<span style={style}>{task.dueDate}</span>
+		Due:
+		<a href="/task/remove?key={{ this.props.task.key }}&project={{ this }}">Remove</a>
       </li>
     );
   }

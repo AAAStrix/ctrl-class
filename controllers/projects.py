@@ -73,12 +73,14 @@ class TaskCreateHandler(webapp2.RequestHandler):
         Request Parameters:
             project_key -> NDB key for the project to add to
             title -> Title to use for the new task
+			date -> Due Date to associate with new task
         """
         project = self.params.project
 
         # Create the new Task object
         task_title = self.request.get('title')
-        task = Task(title=task_title, completed=False)
+	task_duedate = self.request.get('date')
+        task = Task(title=task_title, completed=False, dueDate=task_duedate)
         task_key = task.put()
 
         project.add_task(task_key)

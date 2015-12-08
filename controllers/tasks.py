@@ -17,3 +17,12 @@ class TaskHandler(webapp2.RequestHandler):
         task.completed = not task.completed
         task.put()
         render_json(self, obj=task.as_json())
+
+class TaskRemoveHandler(webapp2.RequestHandler):
+
+	@user_required
+	@protect_task('key')
+	def get(self):
+		task = self.params.task
+		task.remove_task(self.key, self.project.key)
+		self.redirect('/')
