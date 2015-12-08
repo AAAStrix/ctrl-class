@@ -11,16 +11,16 @@
 
 {% block maincontent %}
 
-  <h1>Add a Course</h1>
+  <h1 id="bolded-title">Add a Course</h1>
 
   <div id='course-search-input'></div>
 
   <form method='POST' action='/courses'>
     <div class='form-group'>
-      <label for='courseTitleInput'>Course Name</label>
-      <input type='text' class='form-control' id='courseTitleInput' placeholder='Name of Course' name='title' />
+      <label for='courseTitleInput'><h3 id="bolded-title">New Course Name</h3></label>
+      <input type='text' class='form-control' id='courseTitleInput' placeholder='name of course' name='title' />
     </div>
-    <button type='submit' class='btn btn-primary'>Add Course</button>
+    <button type='submit' class='btn btn-primary'>add course</button>
   </form>
 
 {% endblock %}

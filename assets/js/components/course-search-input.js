@@ -39,7 +39,7 @@ class CourseSearchResult extends React.Component {
 class CourseSearchResultList extends React.Component {
   render() {
     return (
-      <ul>
+      <ul className='course-search-result'>
         {this.props.courses.map((result) => {
           return <CourseSearchResult result={result} />;
         })}
@@ -74,9 +74,9 @@ class CourseSearchInput extends React.Component {
 
   render() {
     return (
-      <div>
-        <input type='text'
-          placeholder='Search for a Class'
+      <div className="course-box-div">
+        <input className="form-control" id="course-box" type='text'
+          placeholder='search for a class'
           value={this.state.searchValue}
           onChange={this.handleInputChange} />
         <CourseSearchResultList courses={this.state.results} />
