@@ -25,7 +25,6 @@
 
   <form method='POST' action='/project/add_task?project_key={{ project_key }}'>
     <input type='text' id="course-box" name='title' placeholder='Create a new task'/>
-	<input type='text' name='date' placeholder='Due Date(Month/Day)'/>
 	<input type='submit' value='Create'/>
   </form>
 
@@ -43,7 +42,7 @@
   <form method='POST' action='/project/members?project_key={{ project_key }}'>
     <input type='text' id="course-box" name='email' placeholder='Add a new group member'/>
   </form>
-  
+
     <a style="color: red;"
      onclick="return confirm('Are you sure you want to remove yourself from this project?');"
      href='/projects/remove?key={{ project_key }}'

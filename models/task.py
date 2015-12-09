@@ -6,14 +6,12 @@ class Task(ndb.Model):
 
     title = ndb.StringProperty()
     completed = ndb.BooleanProperty()
-    dueDate = ndb.StringProperty()
 
     def as_json(self):
         obj = {
             'key': self.key.urlsafe(),
             'title': self.title,
-            'completed' : self.completed,
-			'dueDate' : self.dueDate
+            'completed' : self.completed
         }
         return json.dumps(obj)
 

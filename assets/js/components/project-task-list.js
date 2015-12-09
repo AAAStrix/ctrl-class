@@ -159,8 +159,7 @@ class TaskItem extends React.Component {
         <input type='checkbox' onChange={completeHandler} checked={completed} />
         <span style={style}>{task.title}</span>
         &nbsp;
-        <span style={style}>{task.dueDate}</span>
-        Due: <a href='#' onClick={removeHandler}>Remove</a>
+        <a href='#' onClick={removeHandler}>Remove</a>
       </li>
     );
   }
