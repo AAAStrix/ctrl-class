@@ -388,4 +388,7 @@ h2 {
 	#main_square {
 		margin-right: 0px;
 	}
+	#pad {
+		padding-top: 768px;
+	}
 }
