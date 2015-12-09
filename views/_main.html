@@ -54,7 +54,7 @@
           <div id="list">
             <!-- This makes a lot of assumptions about the project ndb structure, definitely double check it -->
             <ul>
-              {% for project in projects %}
+              {% for project in auth.user.projects %}
                 <li>
                   <a href='{{ project.url }}'>{{ project.title }}</a>
                 </li>
