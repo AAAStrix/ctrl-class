@@ -1,6 +1,5 @@
 from google.appengine.ext import ndb
 from google.appengine.api import search
-from google.appengine.api import memcache
 from utils import tokenize_autocomplete
 
 
@@ -30,12 +29,6 @@ class Course(ndb.Model):
         new_course = cls(title=title)
         new_course.put()
 
-        #Delete courses
-        memcache.delete('courses')
-        
-        # Add to memcache
-        memcache.set(new_course.key.urlsafe(), new_course, namespace='course')
-
         # Update the search index
         index = search.Index(name='course_title_autocomplete')
         doc_id = new_course.key.urlsafe()
@@ -60,11 +53,8 @@ class Course(ndb.Model):
 
     @classmethod
     def find_with_key(cls, key):
-        result = memcache.get(key, namespace='course')
-        if not result:
-           result = ndb.Key(urlsafe=key).get()
-        return result
-        
+        return ndb.Key(urlsafe=key).get()
+
     def add_student(self, user):
         """Add a student to the course"""
         self.student_keys.append(user.key)
