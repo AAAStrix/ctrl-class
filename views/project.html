@@ -11,21 +11,22 @@
   <script type='text/babel' src='/assets/js/components/project-task-list.js'></script>
   <script>
     window.tasks = {{ task_json|safe }};
+    window.project = { key: '{{ project_key|safe }}' };
   </script>
 {% endblock %}
 
 {% block maincontent %}
 
-  <h1>{{ course.title }} </h1>
-
-  <h2>{{ project.title }}</h2>
+  <h1>{{ project.title }}</h1>
 
   <h2>Tasks</h2>
 
-  <task-list tasks="{window.tasks}"></task-list>
+  <task-list tasks="{window.tasks}" project="{window.project}"></task-list>
 
   <form method='POST' action='/project/add_task?project_key={{ project_key }}'>
     <input type='text' id="course-box" name='title' placeholder='Create a new task'/>
+	<input type='text' name='date' placeholder='Due Date(Month/Day)'/>
+	<input type='submit' value='Create'/>
   </form>
 
   <h2>Members</h2>

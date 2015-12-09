@@ -24,7 +24,7 @@ from controllers.courses import CourseListHandler, CourseHandler, \
 from controllers.projects import ProjectListHandler, ProjectHandler, \
     ProjectCreateHandler, ProjectRemoveHandler, TaskCreateHandler, \
     MemberListHandler
-from controllers.tasks import TaskHandler
+from controllers.tasks import TaskHandler, TaskRemoveHandler
 
 # Map Routes
 routes = [
@@ -42,7 +42,8 @@ routes = [
     ('/projects/remove', ProjectRemoveHandler),
     ('/project/add_task', TaskCreateHandler),
     ('/project/members', MemberListHandler),
-    ('/task/toggle', TaskHandler)
+    ('/task/toggle', TaskHandler),
+	('/task/remove', TaskRemoveHandler)
 ]
 
 app = webapp2.WSGIApplication(routes, debug=True)

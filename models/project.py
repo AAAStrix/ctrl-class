@@ -49,6 +49,12 @@ class Project(ndb.Model):
         self.task_keys.append(task_key)
         self.put()
 
+    def remove_task(self, task):
+        """Delete task entity and all references"""
+        self.task_keys.remove(task.key)
+        task.key.delete()
+        self.put()
+
     def as_json(self, include_relationships=False):
         """
         Get the JSON representation of a project

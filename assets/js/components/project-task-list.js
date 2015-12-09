@@ -11,7 +11,7 @@ let dispatchInstance = null;
 class ActionDispatch {
 
   constructor() {
-    this.tasks = {};
+    this.store = Store.getInstance();
   }
 
   /**
@@ -25,30 +25,11 @@ class ActionDispatch {
   }
 
   /**
-   * Resgister a task item to a particular ID
-   */
-  registerTaskItem(id, instance) {
-    if (!this.tasks[id]) {
-      this.tasks[id] = [];
-    }
-    this.tasks[id].push(instance);
-  }
-
-  /**
-   * Set the value of all task items with the same ID number
-   */
-  updateCompletionFor(id, completed) {
-    this.tasks[id].forEach(function(instance) {
-      instance.setState({ completed });
-    });
-  }
-
-  /**
    * Send the update to the server for the tasks with some ID number, setting
    * the value of all of them in the UI to the same value
    */
-  sendUpdateFor(id, value) {
-    this.updateCompletionFor(id, value);
+  updateCompletedState(id, completed) {
+    this.store.update(id, { completed });
 
     // Make the AJAX request and verify that it set the new status correctly
     $.post(`/task/toggle?key=${id}`)
@@ -56,10 +37,63 @@ class ActionDispatch {
         if (typeof data === 'string') {
           data = JSON.parse(data);
         }
-        if (data.completed != value) {
-          this.updateCompletionFor(id, data.completed);
+        if (data.completed != completed) {
+          this.store.update(id, { completed });
         }
       });
+  }
+
+  /**
+   * Send the request to the server to remove a task, then update the store
+   */
+  removeTask(id) {
+    const task = this.store.tasks[id];
+    const taskKey = task.key;
+    const projectKey = task.project.key;
+    $.get(`/task/remove?task_key=${taskKey}&project_key=${projectKey}`)
+      .done(() => {
+        this.store.update(taskKey, { removed: true });
+      });
+  }
+}
+
+let storeInstance = null;
+class Store {
+  constructor() {
+    this.tasks = {};
+    this.listeners = { tasks: {} };
+  }
+
+  static getInstance() {
+    if (storeInstance === null) {
+      storeInstance = new Store();
+    }
+    return storeInstance;
+  }
+
+  registerForChanges(id, callback) {
+    if (!this.listeners.tasks[id]) {
+      this.listeners.tasks[id] = [];
+    }
+    this.listeners.tasks[id].push(callback);
+  }
+
+  update(id, state) {
+    if (!this.tasks[id]) {
+      this.tasks[id] = {};
+    }
+    if (!this.listeners.tasks[id]) {
+      this.listeners.tasks[id] = [];
+    }
+    for (let key in state) {
+      const value = state[key];
+      this.tasks[id][key] = value;
+    }
+    if (!this.tasks[id].completed) {
+      this.tasks[id].completed = false;
+    }
+    this.listeners.tasks[id].forEach((cb) => cb(this.tasks[id]));
+    return this.tasks[id];
   }
 }
 
@@ -86,54 +120,86 @@ class EmptyPlaceholder extends React.Component {
 class TaskItem extends React.Component {
   constructor(props) {
     super(props);
-    const { task } = props;
-    const { key } = task;
-    let { completed } = task;
-    if (typeof completed === 'undefined') {
-      completed = false;
+    const { task, project } = props;
+    if (project) {
+      task.project = project;
     }
-    this.state = { completed };
     this.dispatch = ActionDispatch.getInstance();
-    this.dispatch.registerTaskItem(key, this);
-  }
-
-  setChecked(complete) {
-    this.setState({
-      completed: complete
+    this.store = Store.getInstance();
+    this.state = { task: this.store.update(task.key, task) };
+    this.store.registerForChanges(task.key, (state) => {
+      this.setState({ task: state });
     });
   }
 
-  handleChange(event) {
+  completeTask(event) {
     const checked = event.target.checked;
-    this.dispatch.sendUpdateFor(this.props.task.key, checked);
+    this.dispatch.updateCompletedState(this.state.task.key, checked);
+  }
+
+  removeTask() {
+    if (confirm('Are you sue you want to move this task?')) {
+      this.dispatch.removeTask(this.state.task.key);
+    }
   }
 
   render() {
-    const task = this.props.task;
-    const checked = this.state.completed;
-    const clickHandler = this.handleChange.bind(this);
+    const { task } = this.state;
+    const { completed } = task;
+    const completeHandler = this.completeTask.bind(this);
+    const removeHandler = this.removeTask.bind(this);
     const style = {};
-    if (checked) {
+    if (completed) {
       style['text-decoration'] = 'line-through';
     } else {
       style['text-decoration'] = 'none';
     }
     return (
       <li className='task'>
-        <input type='checkbox' onChange={clickHandler} checked={checked} />
+        <input type='checkbox' onChange={completeHandler} checked={completed} />
         <span style={style}>{task.title}</span>
+        &nbsp;
+        <span style={style}>{task.dueDate}</span>
+        Due: <a href='#' onClick={removeHandler}>Remove</a>
       </li>
     );
   }
 }
 
 class TaskList extends React.Component {
-  render() {
-    const project = this.props.project;
-    this.props.tasks = parseStringArray(this.props.tasks);
-    let tasks = this.props.tasks.map((task) => {
-      return <TaskItem task={task} project={project}/>;
+  constructor(props) {
+    super(props);
+    this.store = Store.getInstance();
+    let { tasks, project } = props;
+    tasks = parseStringArray(tasks);
+    tasks.forEach((task) => {
+      const { removed } = task;
+      this.store.registerForChanges(task.key, (state) => {
+        if (removed !== state.removed) {
+          this.updateStateFor(state);
+        }
+      });
     });
+    this.state = { tasks, project };
+  }
+
+  updateStateFor(updatedTask) {
+    const tasks = this.state.tasks.map(function(task) {
+      if (task.key === updatedTask.key) {
+        task.removed = updatedTask.removed;
+      }
+      return task;
+    });
+    this.setState({ tasks });
+  }
+
+  render() {
+    const project = this.state.project;
+    let tasks = this.state.tasks
+      .filter((task) => !task.removed)
+      .map((task) => {
+        return <TaskItem task={task} project={project}/>;
+      });
     if (tasks.length === 0) {
       tasks = <EmptyPlaceholder>No Tasks</EmptyPlaceholder>;
     }

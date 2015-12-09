@@ -1,5 +1,5 @@
 import webapp2
-from utils.decorators import user_required, protect_task
+from utils.decorators import user_required, protect_task, protect_project
 from utils import render_json
 
 
@@ -17,3 +17,16 @@ class TaskHandler(webapp2.RequestHandler):
         task.completed = not task.completed
         task.put()
         render_json(self, obj=task.as_json())
+
+
+class TaskRemoveHandler(webapp2.RequestHandler):
+
+    @user_required
+    @protect_project('project_key')
+    @protect_task('task_key')
+    def get(self):
+        task = self.params.task
+        project = self.params.project
+        project.remove_task(task)
+        render_json(self)
+
