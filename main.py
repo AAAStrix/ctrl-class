@@ -22,7 +22,8 @@ from controllers.homepage import MainHandler, AboutHandler
 from controllers.courses import CourseListHandler, CourseHandler, \
     CourseAddHandler, CourseRemoveHandler, CourseSearchHandler
 from controllers.projects import ProjectListHandler, ProjectHandler, \
-    ProjectCreateHandler, TaskCreateHandler, MemberListHandler
+    ProjectCreateHandler, ProjectRemoveHandler, TaskCreateHandler, \
+    MemberListHandler
 from controllers.tasks import TaskHandler
 
 # Map Routes
@@ -38,6 +39,7 @@ routes = [
     ('/projects', ProjectListHandler),
     ('/project', ProjectHandler),
     ('/projects/add', ProjectCreateHandler),
+    ('/projects/remove', ProjectRemoveHandler),
     ('/project/add_task', TaskCreateHandler),
     ('/project/members', MemberListHandler),
     ('/task/toggle', TaskHandler)

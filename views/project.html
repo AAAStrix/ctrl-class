@@ -42,5 +42,12 @@
   <form method='POST' action='/project/members?project_key={{ project_key }}'>
     <input type='text' id="course-box" name='email' placeholder='Add a new group member'/>
   </form>
+  
+    <a style="color: red;"
+     onclick="return confirm('Are you sure you want to remove yourself from this project?');"
+     href='/projects/remove?key={{ project_key }}'
+     >
+    Remove this Project
+  </a>
 
 {% endblock %}
