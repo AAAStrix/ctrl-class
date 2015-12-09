@@ -27,4 +27,4 @@ class AboutHandler(webapp2.RequestHandler):
             'project_json': project_json,
             'task_json': task_json
         }
-        render_template(self, 'About.html', params)
+        render_template(self, 'About.html', params) 

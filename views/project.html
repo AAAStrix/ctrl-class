@@ -25,7 +25,7 @@
   <task-list tasks="{window.tasks}"></task-list>
 
   <form method='POST' action='/project/add_task?project_key={{ project_key }}'>
-    <input type='text' name='title' placeholder='Create a new task'/>
+    <input type='text' id="course-box" name='title' placeholder='Create a new task'/>
   </form>
 
   <h2>Members</h2>
@@ -40,7 +40,7 @@
     </div>
 
   <form method='POST' action='/project/members?project_key={{ project_key }}'>
-    <input type='text' name='email' placeholder='Add a new group member'/>
+    <input type='text' id="course-box" name='email' placeholder='Add a new group member'/>
   </form>
 
 {% endblock %}
