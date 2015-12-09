@@ -96,10 +96,7 @@ class User(ndb.Model):
         Arguments:
             project: -> Project Model object
         """
-        #if project:
-        #    if (project.members) < 2:
-        #       self.delete_project
-        #   else:
+
         # Delete user as project member
         project.remove_member(self)
         # Delete project from student
