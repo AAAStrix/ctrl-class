@@ -56,8 +56,16 @@ class ProjectCreateHandler(webapp2.RequestHandler):
 
         self.auth.user.add_project(project)
         self.redirect(course.url)
+        
+class ProjectRemoveHandler(webapp2.RequestHandler):
 
-
+    @user_required
+    @protect_project('key')
+    def get(self):
+        project = self.params.project
+        project.remove_member(self.auth.user)
+        self.redirect('/')
+        
 class TaskCreateHandler(webapp2.RequestHandler):
 
     @user_required
