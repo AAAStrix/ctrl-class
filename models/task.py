@@ -7,7 +7,7 @@ class Task(ndb.Model):
     title = ndb.StringProperty()
     completed = ndb.BooleanProperty()
     dueDate = ndb.StringProperty()
-	
+
     def as_json(self):
         obj = {
             'key': self.key.urlsafe(),
@@ -20,3 +20,6 @@ class Task(ndb.Model):
     @classmethod
     def find_with_key(cls, key):
         return ndb.Key(urlsafe=key).get()
+
+    def __eq__(self, other):
+        return self.key.urlsafe() == other.key.urlsafe()
