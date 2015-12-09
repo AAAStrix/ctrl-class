@@ -125,7 +125,7 @@ class User(ndb.Model):
 
         # Create the user if we couldn't find them
         if not user:
-            email = google_user.nickname()
+            email = google_user.email()
             user = User(id=user_id, email=email)
             user.put()
             send_welcome_email(user)
