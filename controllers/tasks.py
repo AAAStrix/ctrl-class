@@ -24,8 +24,8 @@ class TaskRemoveHandler(webapp2.RequestHandler):
 	@protect_project('project_key')
 	@protect_task('task_key')
 	def get(self):
-		task_key = self.params.task.key
+		task = self.params.task
 		project = self.params.project
-		project.remove_task(task_key)
+		project.remove_task(task)
 		render_json(self)
 		
