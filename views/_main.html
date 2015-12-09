@@ -39,23 +39,23 @@
                     <a href='{{ course.url }}'>{{ course.title }}</a>
                   </li>
                 {% endfor %}
-      					</ul>
-      					<ul id="add-link">
-    						<li><a href='/courses/add'>+ add course</a></li>
-  						</ul>
-  					</div>
-					<div id="title">
-						<label>projects</label>
-					</div>
-					<div id="list">
-						<!-- This makes a lot of assumptions about the project ndb structure, definitely double check it -->
-  						<ul>
-    						{% for project in projects %}
-        					<li>
-        					  <a href='{{ project.url }}'>{{ project.title }}</a>
-        					</li>
-      						{% endfor %}
-						</ul>
+             </ul>
+      		  <ul id="add-link">
+    				<li><a href='/courses/add'>+ add course</a></li>
+  			  </ul>
+  		    </div>
+			<div id="title">
+				<label>projects</label>
+			</div>
+			<div id="list">
+			<!-- This makes a lot of assumptions about the project ndb structure, definitely double check it -->
+  			    <ul>
+    			  {% for project in auth.user.projects %}
+        			<li>
+        			  <a href='{{ project.url }}'>{{ project.title }}</a>
+        			</li>
+      			  {% endfor %}
+				</ul>
           </div>
         </div>
     
