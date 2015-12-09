@@ -49,9 +49,9 @@ class Project(ndb.Model):
         self.task_keys.append(task_key)
         self.put()
     
-    def remove_task(self, task_key):
+    def remove_task(self, task):
         """Remove a task from project"""
-        self.task_keys.remove(task_key)
+        self.task_keys.remove(task.key)
         self.put()
 
     def as_json(self, include_relationships=False):
