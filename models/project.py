@@ -48,11 +48,11 @@ class Project(ndb.Model):
         """Add task to the project"""
         self.task_keys.append(task_key)
         self.put()
-    
-    def remove_task(self, task)
+
+    def remove_task(self, task):
         """Delete task entity and all references"""
-        self.task_keys.remove(task.key())
-        ndb.Key(Task, task.key().id()).delete()
+        self.task_keys.remove(task.key)
+        task.key.delete()
         self.put()
 
     def as_json(self, include_relationships=False):

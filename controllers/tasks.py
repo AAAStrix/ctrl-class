@@ -18,14 +18,15 @@ class TaskHandler(webapp2.RequestHandler):
         task.put()
         render_json(self, obj=task.as_json())
 
+
 class TaskRemoveHandler(webapp2.RequestHandler):
-        
-	@user_required
-	@protect_project('project_key')
-	@protect_task('task_key')
-	def get(self):
-		task_key = self.params.task.key
-		project = self.params.project
-		project.remove_task(task_key)
-		render_json(self)
-		
+
+    @user_required
+    @protect_project('project_key')
+    @protect_task('task_key')
+    def get(self):
+        task = self.params.task
+        project = self.params.project
+        project.remove_task(task)
+        render_json(self)
+
