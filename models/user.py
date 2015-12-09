@@ -88,7 +88,22 @@ class User(ndb.Model):
             # Add the project to the student
             self.project_keys.append(project.key)
             self.put()
+            
+    def leave_project(self, project):
+        """
+        Remove self from project members, project from list
 
+        Arguments:
+            project: -> Project Model object
+        """
+
+        # Delete user as project member
+        project.remove_member(self)
+        # Delete project from student
+        index = self.project_keys.index(project.key)
+        self.project_keys.pop(index)
+        self.put()
+        
     def as_json(self, include_relationships=False):
         """Get the JSON representation of a user"""
         obj = {

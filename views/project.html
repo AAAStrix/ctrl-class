@@ -7,6 +7,7 @@
   <script type='text/javascript' src='/assets/js/reactive-elements.min.js'></script>
   <script type='text/javascript' src='/assets/js/babel.min.js'></script>
   <script type='text/javascript' src='https://code.jquery.com/jquery-2.1.4.min.js'></script>
+  <script src="assets/js/bootstrap.min.js"></script>
   <script type='text/babel' src='/assets/js/components/project-task-list.js'></script>
   <script>
     window.tasks = {{ task_json|safe }};
@@ -24,8 +25,8 @@
   <task-list tasks="{window.tasks}"></task-list>
 
   <form method='POST' action='/project/add_task?project_key={{ project_key }}'>
-    <input type='text' name='title' placeholder='Create a new task'/>
-	<input type='text' name='date' placeholder='Due Date(Month/Day)'/>
+    <input type='text' id="course-box" name='title' placeholder='Create a new task'/>
+	<input type='text' id="course-box" name='date' placeholder='Due Date(Month/Day)'/>
 	<input type='submit' value='Create'/>
   </form>
 
@@ -41,7 +42,14 @@
     </div>
 
   <form method='POST' action='/project/members?project_key={{ project_key }}'>
-    <input type='text' name='email' placeholder='Add a new group member'/>
+    <input type='text' id="course-box" name='email' placeholder='Add a new group member'/>
   </form>
+  
+    <a style="color: red;"
+     onclick="return confirm('Are you sure you want to remove yourself from this project?');"
+     href='/projects/remove?key={{ project_key }}'
+     >
+    Remove this Project
+  </a>
 
 {% endblock %}
