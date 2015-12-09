@@ -32,7 +32,7 @@ class Course(ndb.Model):
 
         #Delete courses
         memcache.delete('courses')
-        
+
         # Add to memcache
         memcache.set(new_course.key.urlsafe(), new_course, namespace='course')
 
@@ -64,7 +64,7 @@ class Course(ndb.Model):
         if not result:
            result = ndb.Key(urlsafe=key).get()
         return result
-        
+
     def add_student(self, user):
         """Add a student to the course"""
         self.student_keys.append(user.key)
@@ -92,3 +92,6 @@ class Course(ndb.Model):
         if include_relationships:
             obj['students'] = map(lambda x: x.as_json(), self.students)
         return obj
+
+    def __eq__(self, other):
+        return self.key.urlsafe() == other.key.urlsafe()

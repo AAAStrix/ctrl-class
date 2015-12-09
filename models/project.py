@@ -42,7 +42,7 @@ class Project(ndb.Model):
 
         # Remove the project from the user
         user.project_keys.remove(self.key)
-        user.put()            
+        user.put()
 
     def add_task(self, task_key):
         """Add task to the project"""
@@ -77,3 +77,6 @@ class Project(ndb.Model):
     @classmethod
     def find_with_key(cls, key):
         return ndb.Key(urlsafe=key).get()
+
+    def __eq__(self, other):
+        return self.key.urlsafe() == other.key.urlsafe()
