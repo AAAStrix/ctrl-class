@@ -178,10 +178,6 @@ h2 {
 
 /****************START HOME PAGE CSS******************/
 
-@-ms-viewport {
-	width: device-width;
-}
-
 #navbar_inner {
 	width: 100%;
 	height: 70px;
@@ -233,7 +229,6 @@ h2 {
 	color: #ffd02a;
     font-size: 60px;
 }
-
 .navbar-brand label:hover {
 	cursor: hand;
 }
@@ -280,7 +275,7 @@ h2 {
 	margin-top: 30px;
 	margin-right: 30px;
 	background: #ffffff;
-    box-shadow: 0 2px 6px rgba(0, 0, 0, .25);
+  box-shadow: 0 2px 6px rgba(0, 0, 0, .25);
 }
 
 #main_square > *:first-child {
@@ -359,27 +354,3 @@ h2 {
 #bolded-title {
 	font-weight: 700;
 }
-
-@media only screen and (max-width: 768px) {
-.collapsing, .in {background-color: #222222;}
-.collapsing ul li a, .in ul li a {color: #555!important;}
-.collapsing ul li a:hover, .in ul li a:hover {color: #f1f1f1!important;}
-}
-
-@media (max-width: 600px) {
-	.navbar-brand label {
-    	font-size: 40px;
-	}
-	.navbar-text {
-    	color: #E6E4E4;
-    	font-size: 23px;
-    	text-transform: lowercase;
-	}
-	#course-box {
-		width: 100%;
-	}
-	#main_square {
-		margin-right: 0px;
-	}
-}
-
