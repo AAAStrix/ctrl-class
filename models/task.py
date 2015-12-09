@@ -20,9 +20,3 @@ class Task(ndb.Model):
     @classmethod
     def find_with_key(cls, key):
         return ndb.Key(urlsafe=key).get()
-
-	@classmethod
-	def remove_task(self, project):
-		# Remove task from project
-		project.task_keys.remove(self)
-		self.put()
