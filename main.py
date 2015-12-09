@@ -30,7 +30,7 @@ from controllers.tasks import TaskHandler
 routes = [
     ('/', MainHandler),
     ('/login', LoginHandler),
-    ('/about', AboutHandler), 
+    ('/about', AboutHandler),
     ('/courses', CourseListHandler),
     ('/course', CourseHandler),
     ('/courses/add', CourseAddHandler),
